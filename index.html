@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="ru" data-layout="desktop">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="theme-color" content="#c7b6ab">
+    <meta name="description" content="Анкета Клуба Гардари: помогите выбрать темы и формат будущих встреч.">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self'; form-action 'none'; base-uri 'none'">
+    <title>Анкета Клуба Гардари</title>
+    <script src="layout.js"></script>
+    <link rel="stylesheet" href="poll.css">
+    <script defer src="poll.js"></script>
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero" aria-labelledby="title">
+        <img class="portrait" src="portrait.webp" width="907" height="1027" alt="">
+        <div class="club-lockup">
+          <span class="club-mark" aria-hidden="true"></span>
+          <a class="club-name" href="https://club.gardari.art/" aria-label="Клуб Гардари — главная">... клуб гардари ...</a>
+          <p class="club-tagline">Встречи · Лекции · Общение</p>
+        </div>
+        <div class="hero-copy">
+          <h1 id="title"><span>Анкета</span> <span>клуба</span></h1>
+          <p class="intro-summary">Чтобы делать встречи Клуба по-настоящему живыми и содержательными, нам важно лучше познакомиться с вами, вашими интересами и запросами. Анкета поможет нам понимать, какие идеи, темы и форматы общения для вас наиболее интересны.</p>
+        </div>
+        <div class="hero-foot">
+          <a class="pill pill-primary start-button" href="#form-start">Ответить на вопросы <span class="chevron" aria-hidden="true"></span>
+          </a>
+          <p class="privacy-note">
+            <span class="privacy-line">Отправляя анкету, вы даёте согласие на</span>
+            <span class="privacy-line">обработку персональных данных в соответствии</span>
+            <span class="privacy-line">с <a href="https://gardari.art/legal/privacy/" rel="noopener noreferrer" target="_blank">Политикой конфиденциальности</a>.</span>
+          </p>
+        </div>
+      </section>
+      <section class="survey" id="form-start" aria-label="Вопросы анкеты">
+        <header class="survey-meta">
+          <p class="step-counter" id="step-count" aria-live="polite">Шаг 1 из 10</p>
+          <ol class="progress" aria-label="Этапы анкеты">
+            <li class="progress-step" aria-current="step">
+              <span class="step-number" aria-hidden="true">1</span>
+              <span>о себе</span>
+            </li>
+            <li class="progress-step">
+              <span class="step-number" aria-hidden="true">2</span>
+              <span>интересы</span>
+            </li>
+            <li class="progress-step">
+              <span class="step-number" aria-hidden="true">3</span>
+              <span>клуб</span>
+            </li>
+            <li class="progress-step">
+              <span class="step-number" aria-hidden="true">4</span>
+              <span>согласие</span>
+            </li>
+          </ol>
+        </header>
+        <form class="form-frame" id="poll-form" novalidate>
+          <section class="form-step" data-step="0" data-stage="0" data-screen="intro">
+            <h2 tabindex="-1">Расскажите<br>немного о себе</h2>
+            <div class="field-block">
+              <div class="answer-row">
+                <label for="q1_name" class="field-label">Представьтесь, пожалуйста.</label>
+                <div class="field-body">
+                  <input type="text" id="q1_name" name="q1_name" maxlength="250" autocomplete="off" placeholder="Ваше имя и фамилия">
+                </div>
+              </div>
+              <div class="answer-row">
+                <label for="q1_email" class="field-label">Укажите, пожалуйста, ваш email.</label>
+                <div class="field-body">
+                  <input type="email" id="q1_email" name="q1_email" maxlength="250" autocomplete="off" placeholder="example@domain.ru" aria-describedby="email-status">
+                  <p class="field-error" id="email-status" role="alert" hidden="">Проверьте адрес электронной почты.</p>
+                </div>
+              </div>
+              <div class="answer-row">
+                <label for="q2_city" class="field-label">В каком городе вы живёте?</label>
+                <div class="field-body">
+                  <input type="text" id="q2_city" name="q2_city" maxlength="250" autocomplete="off" placeholder="Например: Москва">
+                </div>
+              </div>
+            </div>
+            <div class="answer-row age-field" role="group" aria-labelledby="age-label">
+              <div class="field-label" id="age-label">Укажите ваш возраст.</div>
+              <div class="age-options">
+                <label class="age-choice">
+                  <input type="radio" name="q3_age" value="До 25 лет">
+                  <span>До 25 лет</span>
+                </label>
+                <label class="age-choice">
+                  <input type="radio" name="q3_age" value="25–34 года">
+                  <span>25–34 года</span>
+                </label>
+                <label class="age-choice">
+                  <input type="radio" name="q3_age" value="35–44 года">
+                  <span>35–44 года</span>
+                </label>
+                <label class="age-choice">
+                  <input type="radio" name="q3_age" value="45–54 года">
+                  <span>45–54 года</span>
+                </label>
+                <label class="age-choice">
+                  <input type="radio" name="q3_age" value="55–64 года">
+                  <span>55–64 года</span>
+                </label>
+                <label class="age-choice">
+                  <input type="radio" name="q3_age" value="65 лет и старше">
+                  <span>65 лет и старше</span>
+                </label>
+              </div>
+            </div>
+          </section>
+          <section class="form-step" data-step="1" data-stage="0" data-screen="work" hidden>
+            <h2 tabindex="-1">Расскажите о вашем занятии</h2>
+            <div class="answer-row" role="group" aria-labelledby="question-1" aria-describedby="question-1-hint">
+              <div class="question-caption">
+                <p class="question-label" id="question-1">4. Какой вариант лучше всего описывает вашу текущую профессиональную деятельность?</p>
+                <p class="hint" id="question-1-hint">Один вариант.</p>
+              </div>
+              <div class="field-body">
+                <div class="choices">
+                  <label class="choice">
+                    <input type="radio" name="q4_job" value="Специалист / сотрудник">
+                    <span>Специалист / сотрудник</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q4_job" value="Руководитель среднего звена">
+                    <span>Руководитель среднего звена</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q4_job" value="Топ-менеджер / руководитель организации">
+                    <span>Топ-менеджер / руководитель организации</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q4_job" value="Собственник бизнеса">
+                    <span>Собственник бизнеса</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q4_job" value="Индивидуальный предприниматель / фрилансер">
+                    <span>Индивидуальный предприниматель / фрилансер</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q4_job" value="Студент / аспирант">
+                    <span>Студент / аспирант</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q4_job" value="Сейчас не работаю">
+                    <span>Сейчас не работаю</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q4_job" value="Другое (укажите)">
+                    <span>Другое (укажите)</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="conditional answer-row" data-visible-when="q4_job:Другое (укажите)" hidden>
+              <label for="q4_other" class="field-label">Уточните вашу деятельность</label>
+              <div class="field-body">
+                <input type="text" id="q4_other" name="q4_other" maxlength="250" autocomplete="off" placeholder="Напишите свой вариант">
+              </div>
+            </div>
+            <div class="answer-row">
+              <div class="question-caption">
+                <label class="question-title" for="q5_occupation">5. Расскажите в двух-трёх словах о вашем основном занятии.</label>
+                <p class="hint">Например: программирование и создание сайтов, управление персоналом в компании, преподавание в вузе, дизайн интерьеров.</p>
+              </div>
+              <div class="field-body">
+                <textarea name="q5_occupation" id="q5_occupation" rows="3" maxlength="2000"></textarea>
+              </div>
+            </div>
+          </section>
+          <section class="form-step" data-step="2" data-stage="1" data-screen="topics" hidden>
+            <h2 tabindex="-1">Темы и вопросы</h2>
+            <div class="answer-row" role="group" aria-labelledby="question-2" aria-describedby="question-2-hint" data-max="3">
+              <div class="question-caption">
+                <p class="question-label" id="question-2">6. Какие темы и вопросы вызывают у вас наибольший интерес?</p>
+                <p class="hint" id="question-2-hint">Выберите до трёх направлений.</p>
+              </div>
+              <div class="field-body">
+                <div class="choices">
+                  <label class="choice">
+                    <input type="checkbox" name="q6_topics[]" value="Человек и культура">
+                    <span>
+                      <strong>Человек и культура</strong>
+                      <small>Что делает человека человеком, как складываются его отношения с миром и другими людьми, как культура формирует наши представления о действительности, ценности и способы жизни.</small>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q6_topics[]" value="Мышление">
+                    <span>
+                      <strong>Мышление</strong>
+                      <small>Как мышление определяет наши способы взаимодействия с миром, как возникают и меняются представления о действительности, какие возможности и ограничения открывают разные способы мыслить.</small>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q6_topics[]" value="Искусственный интеллект и технологии">
+                    <span>
+                      <strong>Искусственный интеллект и технологии</strong>
+                      <small>Как технологии меняют нашу жизнь, отношения и способы взаимодействия с миром, какие возможности они открывают и что происходит с человеческим мышлением в эпоху ИИ.</small>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q6_topics[]" value="Искусство и творчество">
+                    <span>
+                      <strong>Искусство и творчество</strong>
+                      <small>Как рождаются образы и новые идеи, почему искусство позволяет увидеть привычный мир иначе, что происходит с человеком в процессе творчества.</small>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q6_topics[]" value="История и современность">
+                    <span>
+                      <strong>История и современность</strong>
+                      <small>Как менялись общества, культуры и представления людей о мире, какие процессы определяют нашу современность и как прошлое помогает понять происходящее сегодня.</small>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q6_topics[]" value="Другое (укажите)">
+                    <span>
+                      <strong>Другое (укажите)</strong>
+                    </span>
+                  </label>
+                </div>
+                <label class="other-entry" for="q6_other">Другое (укажите): <input name="q6_other" id="q6_other" type="text" maxlength="300" placeholder="Ваш вариант">
+                </label>
+                <p class="limit-warning" role="status" hidden>Можно выбрать не более 3 вариантов.</p>
+              </div>
+            </div>
+          </section>
+          <section class="form-step" data-step="3" data-stage="1" data-screen="motives" hidden>
+            <h2 tabindex="-1">Что вас побуждает</h2>
+            <div class="answer-row" role="group" aria-labelledby="question-3" aria-describedby="question-3-hint" data-max="3">
+              <div class="question-caption">
+                <p class="question-label" id="question-3">7. Что побуждает вас обращаться к интересующим темам?</p>
+                <p class="hint" id="question-3-hint">Выберите до трёх вариантов.</p>
+              </div>
+              <div class="field-body">
+                <div class="choices">
+                  <label class="choice">
+                    <input type="checkbox" name="q7_motives[]" value="Хочу глубже понимать себя и других людей">
+                    <span>
+                      <strong>Хочу глубже понимать себя и других людей</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q7_motives[]" value="Ищу ответы на конкретные вопросы, возникающие в работе">
+                    <span>
+                      <strong>Ищу ответы на конкретные вопросы, возникающие в работе</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q7_motives[]" value="Хочу лучше разбираться в происходящем вокруг">
+                    <span>
+                      <strong>Хочу лучше разбираться в происходящем вокруг</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q7_motives[]" value="Мне интересно исследовать новые идеи и узнавать то, с чем раньше не сталкивался(ась)">
+                    <span>
+                      <strong>Мне интересно исследовать новые идеи и узнавать то, с чем раньше не сталкивался(ась)</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q7_motives[]" value="Ищу способы решать сложные задачи и принимать решения">
+                    <span>
+                      <strong>Ищу способы решать сложные задачи и принимать решения</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q7_motives[]" value="Хочу расширять кругозор, даже если знания не имеют непосредственного применения">
+                    <span>
+                      <strong>Хочу расширять кругозор, даже если знания не имеют непосредственного применения</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q7_motives[]" value="Интересуюсь темами в связи со своими увлечениями и творческими проектами">
+                    <span>
+                      <strong>Интересуюсь темами в связи со своими увлечениями и творческими проектами</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q7_motives[]" value="Другое (укажите)">
+                    <span>
+                      <strong>Другое (укажите)</strong>
+                    </span>
+                  </label>
+                </div>
+                <label class="other-entry" for="q7_other">Другое (укажите): <input name="q7_other" id="q7_other" type="text" maxlength="300" placeholder="Ваш вариант">
+                </label>
+                <p class="limit-warning" role="status" hidden>Можно выбрать не более 3 вариантов.</p>
+              </div>
+            </div>
+          </section>
+          <section class="form-step" data-step="4" data-stage="1" data-screen="difficulties" hidden>
+            <h2 tabindex="-1">Затруднения и ваши мысли</h2>
+            <div class="answer-row" role="group" aria-labelledby="question-4" aria-describedby="question-4-hint" data-max="3">
+              <div class="question-caption">
+                <p class="question-label" id="question-4">8. С какими затруднениями вы чаще сталкиваетесь в работе, повседневной жизни или при попытке разобраться в сложных вопросах?</p>
+                <p class="hint" id="question-4-hint">Выберите до трёх вариантов.</p>
+              </div>
+              <div class="field-body">
+                <div class="choices">
+                  <label class="choice">
+                    <input type="checkbox" name="q8_difficulties[]" value="Сложно разобраться в большом количестве информации">
+                    <span>
+                      <strong>Сложно разобраться в большом количестве информации</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q8_difficulties[]" value="Трудно отличить достоверные сведения от сомнительных">
+                    <span>
+                      <strong>Трудно отличить достоверные сведения от сомнительных</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q8_difficulties[]" value="Не всегда понятно, на какие основания опираться при принятии решения">
+                    <span>
+                      <strong>Не всегда понятно, на какие основания опираться при принятии решения</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q8_difficulties[]" value="Бывает сложно разобраться в противоречивых мнениях и объяснениях">
+                    <span>
+                      <strong>Бывает сложно разобраться в противоречивых мнениях и объяснениях</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q8_difficulties[]" value="Трудно увидеть ситуацию с другой стороны или найти новый подход">
+                    <span>
+                      <strong>Трудно увидеть ситуацию с другой стороны или найти новый подход</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q8_difficulties[]" value="Не хватает времени или возможностей глубоко изучать интересующие вопросы">
+                    <span>
+                      <strong>Не хватает времени или возможностей глубоко изучать интересующие вопросы</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q8_difficulties[]" value="Не хватает людей, с которыми можно обсудить сложные или необычные идеи">
+                    <span>
+                      <strong>Не хватает людей, с которыми можно обсудить сложные или необычные идеи</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q8_difficulties[]" value="Не испытываю подобных затруднений">
+                    <span>
+                      <strong>Не испытываю подобных затруднений</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q8_difficulties[]" value="Другое (укажите)">
+                    <span>
+                      <strong>Другое (укажите)</strong>
+                    </span>
+                  </label>
+                </div>
+                <label class="other-entry" for="q8_other">Другое (укажите): <input name="q8_other" id="q8_other" type="text" maxlength="300" placeholder="Ваш вариант">
+                </label>
+                <p class="limit-warning" role="status" hidden>Можно выбрать не более 3 вариантов.</p>
+              </div>
+            </div>
+            <div class="answer-row">
+              <div class="question-caption">
+                <label class="question-title" for="q9_difficulty">9. Если среди предложенных вариантов не оказалось затруднения, с которым вы сталкиваетесь, расскажите о нём своими словами.</label>
+                <p class="hint">Необязательно.</p>
+              </div>
+              <div class="field-body">
+                <textarea name="q9_difficulty" id="q9_difficulty" rows="3" maxlength="2000"></textarea>
+              </div>
+            </div>
+          </section>
+          <section class="form-step" data-step="5" data-stage="2" data-screen="participation" hidden>
+            <h2 tabindex="-1">Участие в клубе</h2>
+            <div class="answer-row" role="group" aria-labelledby="question-5" aria-describedby="question-5-hint">
+              <div class="question-caption">
+                <p class="question-label" id="question-5">10. Участвуете ли вы сейчас во встречах, клубах или сообществах по интересам?</p>
+                <p class="hint" id="question-5-hint">Один вариант.</p>
+              </div>
+              <div class="field-body">
+                <div class="choices">
+                  <label class="choice">
+                    <input type="radio" name="q10_existing" value="Да, регулярно (1–2 раза в месяц)">
+                    <span>Да, регулярно (1–2 раза в месяц)</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q10_existing" value="Иногда (1 раз в 2–3 месяца)">
+                    <span>Иногда (1 раз в 2–3 месяца)</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q10_existing" value="Раньше участвовал(а), сейчас нет">
+                    <span>Раньше участвовал(а), сейчас нет</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q10_existing" value="Нет, но мне это интересно">
+                    <span>Нет, но мне это интересно</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q10_existing" value="Нет, и пока такой потребности не испытываю">
+                    <span>Нет, и пока такой потребности не испытываю</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="answer-row" role="group" aria-labelledby="question-6" aria-describedby="question-6-hint" data-max="3">
+              <div class="question-caption">
+                <p class="question-label" id="question-6">11. Что представляет для вас наибольшую ценность в участии в интеллектуальном клубе?</p>
+                <p class="hint" id="question-6-hint">Выберите до трёх вариантов.</p>
+              </div>
+              <div class="field-body">
+                <div class="choices">
+                  <label class="choice">
+                    <input type="checkbox" name="q11_value[]" value="Возможность глубже разбираться в интересующих вопросах">
+                    <span>
+                      <strong>Возможность глубже разбираться в интересующих вопросах</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q11_value[]" value="Новые знания и идеи">
+                    <span>
+                      <strong>Новые знания и идеи</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q11_value[]" value="Общение с интересными людьми">
+                    <span>
+                      <strong>Общение с интересными людьми</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q11_value[]" value="Знакомство с другими точками зрения">
+                    <span>
+                      <strong>Знакомство с другими точками зрения</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q11_value[]" value="Возможность обсуждать собственные идеи и получать обратную связь">
+                    <span>
+                      <strong>Возможность обсуждать собственные идеи и получать обратную связь</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q11_value[]" value="Совместный поиск ответов на сложные вопросы">
+                    <span>
+                      <strong>Совместный поиск ответов на сложные вопросы</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q11_value[]" value="Возможность применять новые знания и подходы в жизни или работе">
+                    <span>
+                      <strong>Возможность применять новые знания и подходы в жизни или работе</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q11_value[]" value="Получать поддержку в сообществе людей со схожими интересами">
+                    <span>
+                      <strong>Получать поддержку в сообществе людей со схожими интересами</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q11_value[]" value="Другое (укажите)">
+                    <span>
+                      <strong>Другое (укажите)</strong>
+                    </span>
+                  </label>
+                </div>
+                <label class="other-entry" for="q11_other">Другое (укажите): <input name="q11_other" id="q11_other" type="text" maxlength="300" placeholder="Ваш вариант">
+                </label>
+                <p class="limit-warning" role="status" hidden>Можно выбрать не более 3 вариантов.</p>
+              </div>
+            </div>
+          </section>
+          <section class="form-step" data-step="6" data-stage="2" data-screen="factors" hidden>
+            <h2 tabindex="-1">Будущие встречи</h2>
+            <div class="answer-row" role="group" aria-labelledby="question-7" aria-describedby="question-7-hint" data-max="3">
+              <div class="question-caption">
+                <p class="question-label" id="question-7">12. Что больше всего повлияет на ваше решение посетить встречу клуба?</p>
+                <p class="hint" id="question-7-hint">Выберите до трёх вариантов.</p>
+              </div>
+              <div class="field-body">
+                <div class="choices">
+                  <label class="choice">
+                    <input type="checkbox" name="q12_factors[]" value="Тема, которая мне действительно интересна">
+                    <span>
+                      <strong>Тема, которая мне действительно интересна</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q12_factors[]" value="Участие интересного или компетентного ведущего">
+                    <span>
+                      <strong>Участие интересного или компетентного ведущего</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q12_factors[]" value="Возможность не только слушать, но и высказывать своё мнение">
+                    <span>
+                      <strong>Возможность не только слушать, но и высказывать своё мнение</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q12_factors[]" value="Практическая польза от встречи">
+                    <span>
+                      <strong>Практическая польза от встречи</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q12_factors[]" value="Возможность познакомиться с новыми людьми">
+                    <span>
+                      <strong>Возможность познакомиться с новыми людьми</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q12_factors[]" value="Необычный подход к обсуждению знакомых вопросов">
+                    <span>
+                      <strong>Необычный подход к обсуждению знакомых вопросов</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q12_factors[]" value="Возможность продолжить уже начатый разговор">
+                    <span>
+                      <strong>Возможность продолжить уже начатый разговор</strong>
+                    </span>
+                  </label>
+                </div>
+                <p class="limit-warning" role="status" hidden>Можно выбрать не более 3 вариантов.</p>
+              </div>
+            </div>
+            <div class="answer-row" role="group" aria-labelledby="question-8" aria-describedby="question-8-hint" data-max="0">
+              <div class="question-caption">
+                <p class="question-label" id="question-8">13. В каком формате вам было бы интереснее участвовать в жизни клуба?</p>
+                <p class="hint" id="question-8-hint">Можно выбрать несколько вариантов.</p>
+              </div>
+              <div class="field-body">
+                <div class="choices">
+                  <label class="choice">
+                    <input type="checkbox" name="q13_formats[]" value="Живые встречи в Екатеринбурге (офлайн)">
+                    <span>
+                      <strong>Живые встречи в Екатеринбурге (офлайн)</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q13_formats[]" value="Онлайн-встречи или лекции с возможностью обсуждения">
+                    <span>
+                      <strong>Онлайн-встречи или лекции с возможностью обсуждения</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q13_formats[]" value="Записи встреч и материалы для самостоятельного знакомства">
+                    <span>
+                      <strong>Записи встреч и материалы для самостоятельного знакомства</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q13_formats[]" value="Другое (укажите)">
+                    <span>
+                      <strong>Другое (укажите)</strong>
+                    </span>
+                  </label>
+                </div>
+                <label class="other-entry" for="q13_other">Другое (укажите): <input name="q13_other" id="q13_other" type="text" maxlength="300" placeholder="Ваш вариант">
+                </label>
+              </div>
+            </div>
+          </section>
+          <section class="form-step" data-step="7" data-stage="2" data-screen="frequency" hidden>
+            <h2 tabindex="-1">Регулярность и длительность</h2>
+            <div class="answer-row" role="group" aria-labelledby="question-9" aria-describedby="question-9-hint">
+              <div class="question-caption">
+                <p class="question-label" id="question-9">14. Как часто вы были бы готовы участвовать во встречах клуба?</p>
+                <p class="hint" id="question-9-hint">Один вариант.</p>
+              </div>
+              <div class="field-body">
+                <div class="choices">
+                  <label class="choice">
+                    <input type="radio" name="q14_frequency" value="Раз в неделю">
+                    <span>Раз в неделю</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q14_frequency" value="Два раза в месяц">
+                    <span>Два раза в месяц</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q14_frequency" value="Раз в месяц">
+                    <span>Раз в месяц</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q14_frequency" value="Раз в два-три месяца">
+                    <span>Раз в два-три месяца</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q14_frequency" value="В зависимости от темы и формата встречи">
+                    <span>В зависимости от темы и формата встречи</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q14_frequency" value="Пока не знаю">
+                    <span>Пока не знаю</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="answer-row" role="group" aria-labelledby="question-10" aria-describedby="question-10-hint">
+              <div class="question-caption">
+                <p class="question-label" id="question-10">15. Какая продолжительность встречи для вас оптимальна?</p>
+                <p class="hint" id="question-10-hint">Один вариант.</p>
+              </div>
+              <div class="field-body">
+                <div class="choices">
+                  <label class="choice">
+                    <input type="radio" name="q15_duration" value="1–1,5 часа">
+                    <span>1–1,5 часа</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q15_duration" value="Около двух часов">
+                    <span>Около двух часов</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q15_duration" value="2,5–3 часа">
+                    <span>2,5–3 часа</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q15_duration" value="Продолжительность не имеет значения, если встреча интересна">
+                    <span>Продолжительность не имеет значения, если встреча интересна</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="form-step" data-step="8" data-stage="2" data-screen="times" hidden>
+            <h2 tabindex="-1">Время и пожелания</h2>
+            <div class="answer-row" role="group" aria-labelledby="question-11" aria-describedby="question-11-hint" data-max="0">
+              <div class="question-caption">
+                <p class="question-label" id="question-11">16. В какое время вам удобнее участвовать во встречах?</p>
+                <p class="hint" id="question-11-hint">Можно выбрать несколько вариантов.</p>
+              </div>
+              <div class="field-body">
+                <div class="choices">
+                  <label class="choice">
+                    <input type="checkbox" name="q16_times[]" value="В будние дни вечером">
+                    <span>
+                      <strong>В будние дни вечером</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q16_times[]" value="В выходные днём">
+                    <span>
+                      <strong>В выходные днём</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q16_times[]" value="В выходные вечером">
+                    <span>
+                      <strong>В выходные вечером</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q16_times[]" value="Зависит от конкретной даты">
+                    <span>
+                      <strong>Зависит от конкретной даты</strong>
+                    </span>
+                  </label>
+                  <label class="choice">
+                    <input type="checkbox" name="q16_times[]" value="Другое (укажите)">
+                    <span>
+                      <strong>Другое (укажите)</strong>
+                    </span>
+                  </label>
+                </div>
+                <label class="other-entry" for="q16_other">Другое (укажите): <input name="q16_other" id="q16_other" type="text" maxlength="300" placeholder="Ваш вариант">
+                </label>
+              </div>
+            </div>
+            <div class="answer-row">
+              <div class="question-caption">
+                <label class="question-title" for="q17_comments">17. Что ещё нам важно учесть при организации клуба? Здесь вы можете написать любые комментарии, пожелания или темы для обсуждения.</label>
+                <p class="hint">Необязательно.</p>
+              </div>
+              <div class="field-body">
+                <textarea name="q17_comments" id="q17_comments" rows="3" maxlength="2000"></textarea>
+              </div>
+            </div>
+          </section>
+          <section class="form-step" data-step="9" data-stage="3" data-screen="focus" hidden>
+            <h2 tabindex="-1">Фокус-группа и согласие</h2>
+            <div class="answer-row" role="group" aria-labelledby="question-12" aria-describedby="question-12-hint">
+              <div class="question-caption">
+                <p class="question-label" id="question-12">18. Готовы ли вы принять участие в очной фокус-группе клуба в Екатеринбурге?</p>
+                <p class="hint" id="question-12-hint">Один вариант.</p>
+              </div>
+              <div class="field-body">
+                <div class="choices">
+                  <label class="choice">
+                    <input type="radio" name="q18_focus" value="Да, готов(а)">
+                    <span>Да, готов(а)</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q18_focus" value="Возможно, зависит от даты и времени">
+                    <span>Возможно, зависит от даты и времени</span>
+                  </label>
+                  <label class="choice">
+                    <input type="radio" name="q18_focus" value="Нет, пока не готов(а)">
+                    <span>Нет, пока не готов(а)</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="conditional answer-row" data-visible-when="q18_focus:Да, готов(а)|Возможно, зависит от даты и времени" hidden>
+              <label for="q18_contact" class="field-label">Если готовы, оставьте, пожалуйста, контакт для связи.</label>
+              <div class="field-body">
+                <input type="text" id="q18_contact" name="q18_contact" maxlength="250" autocomplete="off" placeholder="Telegram, WhatsApp, Max">
+                <small>Необязательно.</small>
+              </div>
+            </div>
+            <div class="consent">
+              <label>
+                <input type="checkbox" name="consent" value="1" id="consent" aria-describedby="consent-status">
+                <span>Я даю согласие на обработку моих персональных данных в соответствии с <a href="https://gardari.art/legal/privacy/" target="_blank" rel="noopener noreferrer">Политикой обработки персональных данных</a>.</span>
+              </label>
+              <p class="field-error" id="consent-status" role="alert" hidden="">Отметьте согласие, чтобы завершить анкету.</p>
+            </div>
+          </section>
+          <div class="form-actions">
+            <button class="pill back-button" type="button" id="prev" hidden>
+              <span class="chevron chevron-back" aria-hidden="true"></span> Назад</button>
+            <button class="pill pill-primary" type="button" id="next">Следующий вопрос <span class="chevron" aria-hidden="true"></span>
+            </button>
+            <button class="pill pill-primary" type="submit" id="send" hidden>Завершить <span class="chevron" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form>
+        <section class="thanks" id="thank-you" aria-labelledby="thanks-title" hidden>
+          <h2 id="thanks-title" tabindex="-1">Спасибо за участие!</h2>
+          <a class="pill pill-primary" href="https://club.gardari.art/">Вернуться на сайт клуба <span class="chevron" aria-hidden="true"></span>
+          </a>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
