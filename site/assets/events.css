@@ -8,6 +8,16 @@
   font: 400 1.9141cqw/1.2015 var(--serif);
 }
 
+.event-page-heading {
+  margin-block-start: 4.08cqw;
+  font: 900 3.0626cqw/1.125 var(--sans);
+  letter-spacing: -.05em;
+}
+
+.event-page-heading + .event-list {
+  margin-block-start: 3.667cqw;
+}
+
 [data-page="archive"] .event-list {
   --row-inset: 2.03cqw;
 }
@@ -134,6 +144,15 @@
     margin-block: 36px 54px;
     font-size: clamp(16px, 3.5cqw, 19px);
     line-height: 1.32;
+  }
+
+  .event-page-heading {
+    margin-block-start: 28px;
+    font-size: clamp(16px, 5.35cqw, 24px);
+  }
+
+  .event-page-heading + .event-list {
+    margin-block-start: 24px;
   }
 
   [data-page="archive"] .event-list {
