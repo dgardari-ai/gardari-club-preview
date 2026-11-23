@@ -39,6 +39,85 @@
   const hover = matchMedia('(hover: hover)');
   let active = -1;
 
+  function scrollCardIntoTrack(rail, first, current) {
+    if (rail.scrollWidth > rail.clientWidth + 1) {
+      rail.scrollTo({ left: current.offsetLeft - first.offsetLeft, behavior: 'instant' });
+    }
+  }
+
+  function bindDeckKeys(rail, items, select) {
+    rail.addEventListener('keydown', event => {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      const current = items.findIndex(item => item.contains(event.target));
+      if (current < 0) return;
+      const count = items.length;
+      const targets = {
+        ArrowLeft: (current + count - 1) % count, ArrowRight: (current + 1) % count,
+        Home: 0, End: count - 1
+      };
+      if (!Object.hasOwn(targets, event.key)) return;
+      event.preventDefault();
+      select(targets[event.key]);
+    });
+  }
+
+  function mountSpaceGallery(gallery) {
+    const rail = gallery.querySelector('.space-track');
+    const photos = [...rail.querySelectorAll('.space-photo')];
+    rail.style.setProperty('--closed-cards', photos.length - 1);
+
+    const ns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(ns, 'svg');
+    svg.classList.add('space-tones');
+    svg.setAttribute('width', '0');
+    svg.setAttribute('height', '0');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    const definitions = document.createElementNS(ns, 'defs');
+    svg.append(definitions);
+    gallery.prepend(svg);
+
+    function select(index, focus) {
+      photos.forEach((photo, i) => {
+        const selected = i === index;
+        photo.classList.toggle('is-open', selected);
+        photo.setAttribute('aria-pressed', String(selected));
+        photo.tabIndex = selected ? 0 : -1;
+      });
+      if (focus) {
+        photos[index].focus({ preventScroll: true });
+        scrollCardIntoTrack(rail, photos[0], photos[index]);
+      }
+    }
+
+    photos.forEach((photo, index) => {
+      const img = photo.querySelector('img');
+      const curve = img.dataset.tone.split(' ').map(Number);
+      const balance = img.dataset.balance.split(' ').map(Number);
+      const filter = document.createElementNS(ns, 'filter');
+      filter.id = 'club-space-tone-' + (index + 1);
+      filter.setAttribute('color-interpolation-filters', 'sRGB');
+      const transfer = document.createElementNS(ns, 'feComponentTransfer');
+      ['R', 'G', 'B'].forEach((channel, i) => {
+        const component = document.createElementNS(ns, 'feFunc' + channel);
+        component.setAttribute('type', 'table');
+        component.setAttribute('tableValues', curve.map(value => Math.min(1, value * balance[i]).toFixed(4)).join(' '));
+        transfer.append(component);
+      });
+      const color = document.createElementNS(ns, 'feColorMatrix');
+      color.setAttribute('type', 'saturate');
+      color.setAttribute('values', img.dataset.saturation);
+      filter.append(transfer, color);
+      definitions.append(filter);
+      img.style.filter = 'url(#' + filter.id + ')';
+      img.draggable = false;
+      photo.append(clubOutline());
+      photo.addEventListener('click', () => select(index, true));
+    });
+    select(0, false);
+    bindDeckKeys(rail, photos, index => select(index, true));
+  }
+
   function closeDetails() {
     detail.hidden = true;
     panels.forEach(({ action }) => {
@@ -53,6 +132,8 @@
     detail.hidden = false;
     detail.setAttribute('aria-labelledby', 'deck-title-' + card.id);
     panels[index].action.setAttribute('aria-expanded', 'true');
+    const gallery = detail.querySelector('.club-space');
+    if (gallery) mountSpaceGallery(gallery);
   }
 
   function activate(index, focusAction = false, scrollCard = false) {
@@ -68,11 +149,7 @@
       });
     }
     if (focusAction) panels[index].action.focus({ preventScroll: true });
-    if (scrollCard && track.scrollWidth > track.clientWidth + 1) {
-      // Position after the rail has assumed its expanded mobile width.
-      const panel = panels[index].panel;
-      track.scrollTo({ left: panel.offsetLeft - panels[0].panel.offsetLeft, behavior: 'instant' });
-    }
+    if (scrollCard) scrollCardIntoTrack(track, panels[0].panel, panels[index].panel);
   }
 
   function image(file, className) {
@@ -159,19 +236,7 @@
     if (next >= 0) activate(next);
   });
 
-  track.addEventListener('keydown', event => {
-    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
-    const current = panels.findIndex(({ panel }) => panel.contains(event.target));
-    if (current < 0) return;
-    const last = panels.length - 1;
-    const targets = {
-      ArrowLeft: (current + last) % panels.length, ArrowRight: (current + 1) % panels.length,
-      Home: 0, End: last
-    };
-    if (!Object.hasOwn(targets, event.key)) return;
-    event.preventDefault();
-    activate(targets[event.key], true, true);
-  });
+  bindDeckKeys(track, panels.map(({ panel }) => panel), index => activate(index, true, true));
 
   root.append(track);
   if (about) root.append(detail);

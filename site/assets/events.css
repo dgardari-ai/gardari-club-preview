@@ -97,6 +97,13 @@
   --pill-gap: 1.325em;
 }
 
+.event-row[open] .event-more::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
 .event-description p + .event-more {
   margin-block-start: 2.7cqw;
 }

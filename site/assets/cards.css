@@ -2,6 +2,7 @@
 .club-deck {
   --gap: 1.465cqw;
   --open-width: 50cqw;
+  --closed-cards: 4;
   --card-height: 46.52cqw;
   --copy-left: 5.56cqw;
   --arrow-size: 5cqw;
@@ -15,7 +16,7 @@
 
 .deck-card {
   position: relative;
-  flex: 0 0 calc((100% - var(--open-width) - 4 * var(--gap)) / 4);
+  flex: 0 0 calc((100% - var(--open-width) - var(--closed-cards) * var(--gap)) / var(--closed-cards));
   height: var(--card-height);
   min-width: 0;
   border-radius: var(--panel-radius);
@@ -69,7 +70,7 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: var(--open-width);
+  width: 100%;
   height: 100%;
   display: none;
   pointer-events: none;
@@ -129,25 +130,18 @@
 }
 .deck-intro p + p { margin-top: .45em; }
 [data-card="about"] .deck-intro { top: 17.25cqw; }
-[data-deck="about"] .club-deck { --copy-left: 5.86cqw; }
+[data-deck="about"] > .club-deck { --copy-left: 5.86cqw; }
 [data-deck="about"] .deck-title { top: 11.74cqw; }
 [data-deck="about"] .deck-intro { top: 20.25cqw; }
 .deck-action {
   position: absolute;
-  left: var(--arrow-left);
-  bottom: var(--arrow-bottom);
-  width: var(--arrow-size);
-  height: var(--arrow-size);
-  border-radius: 50%;
-}
-.deck-action-icon { display: block; width: 100%; height: 100%; }
-[data-deck="about"] .deck-action {
   inset: 0;
   width: 100%;
   height: 100%;
   border-radius: var(--panel-radius);
 }
-[data-deck="about"] .deck-action-icon {
+.deck-action-icon {
+  display: block;
   position: absolute;
   left: var(--arrow-left);
   bottom: var(--arrow-bottom);
@@ -155,7 +149,9 @@
   height: var(--arrow-size);
 }
 .deck-detail {
-  margin: 4.25cqw 3.75cqw 0 5.86cqw;
+  --detail-start: 5.86cqw;
+  --detail-end: 3.75cqw;
+  margin: 4.25cqw var(--detail-end) 0 var(--detail-start);
   font: 400 1.723cqw/1.124 var(--serif);
 }
 .deck-detail h3 {
@@ -166,6 +162,22 @@
 .deck-detail p + p { margin-top: 1.42cqw; }
 .deck-detail p + h3 { margin-top: 2.32cqw; }
 .deck-detail .join-action { margin-top: 2.68cqw; }
+.club-space { margin-top: 3.15cqw; scroll-margin-block-start: 24px; }
+.club-space h3 { margin-block-end: 2.65cqw; }
+.space-track {
+  margin-inline-start: calc(0px - var(--detail-start));
+  margin-inline-end: calc(0px - var(--detail-end));
+}
+.space-photo { border: 0; padding: 0; background: var(--paper); }
+.space-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--photo-focus, center);
+  border-radius: inherit;
+}
+.space-photo .stroke-outline { z-index: 1; }
+.space-tones { position: absolute; }
 .contact-section h3 { text-transform: uppercase; }
 .contact-section + .contact-section { margin-top: 4.35cqw; }
 .contact-map { margin-top: 2.68cqw; }
@@ -211,10 +223,9 @@
     scrollbar-width: thin;
     scrollbar-color: var(--ink) transparent;
   }
-  [data-deck="about"] .club-deck { --copy-left: clamp(18px, 5cqw, 35px); }
+  [data-deck="about"] > .club-deck { --copy-left: clamp(18px, 5cqw, 35px); }
   .deck-card, .deck-card.is-open { flex: none; width: 46px; transition: none; }
   .deck-card.is-open { width: var(--open-width); }
-  .deck-content { width: 100%; }
   .deck-intro br { display: none; }
   .deck-select span { font-size: clamp(15px, 3.35cqw, 19px); }
   .deck-number { top: 18px; font-size: clamp(48px, 10.8cqw, 68px); }
@@ -232,16 +243,20 @@
     text-wrap: pretty;
   }
   [data-deck="about"] .deck-card:is([data-card="idea"], [data-card="join"]) { height: max(var(--card-height), 445px); }
-  [data-deck="about"] .club-deck { --card-height: max(445px, calc(var(--open-width) * .931)); }
+  [data-deck="about"] > .club-deck { --card-height: max(445px, calc(var(--open-width) * .931)); }
   [data-card="idea"] .deck-artwork { --art-width: 53%; --art-left: 41%; }
   .deck-card:focus-within { outline-offset: -3px; }
   .deck-select:focus-visible, .deck-action:focus-visible { outline-offset: -3px; }
-  .deck-detail { margin: 20px var(--copy-left, 6cqw) 0; font-size: 16px; line-height: 1.32; }
+  .deck-detail { --detail-start: 6cqw; --detail-end: 6cqw; margin: 20px var(--detail-end) 0 var(--detail-start); font-size: 16px; line-height: 1.32; }
   .deck-detail br { display: none; }
   .deck-detail h3 { font-size: 22px; margin-block-end: 12px; }
   .deck-detail p + p { margin-top: 12px; }
   .deck-detail p + h3 { margin-top: 20px; }
   .deck-detail .join-action { margin-top: 20px; }
+  .club-space { margin-top: 26px; }
+  .club-space h3 { margin-block-end: 18px; }
+  .space-track { --card-height: calc(var(--open-width) * .931); }
+  .space-photo:focus-visible { outline-offset: -4px; }
   .contact-section + .contact-section { margin-top: 30px; }
   .contact-map { margin-top: 20px; }
   .club-resources dd { margin-top: 12px; }
