@@ -53,7 +53,6 @@ img { display: block; max-width: 100% }
 .hero-outline--mobile { display: none }
 .hero.has-joined-frame .hero-scene { visibility: hidden; }
 .hero-outline--mobile.frame-joined rect { visibility: hidden; }
-.hero:has(.hero-scene.is-tracing) .joined-figure { visibility: hidden; }
 
 .hero-nav, .hero-brand {
   position: absolute;
@@ -129,6 +128,9 @@ img { display: block; max-width: 100% }
 .shell > [data-deck] { margin-top: var(--deck-spacing) }
 [data-inner-header] { display: flex; gap: 1.68cqw; align-items: center; }
 .inner-nav { display: flex; align-items: center; gap: 1.71cqw }
+@media (prefers-reduced-motion: no-preference) {
+  .inner-entrance-pending .inner-page { opacity: 0; }
+}
 @media (max-width: 718px) {
   .shell { --field-width: calc(100% - 28px); --nameplate-height: 40px; --deck-spacing: 21px; --panel-radius: 18px; --line: .7px }
   .home-page { padding-top: 36px }

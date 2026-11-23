@@ -76,7 +76,11 @@
 }
 
 .event-row[open] .event-plus {
-  visibility: hidden;
+  rotate: 45deg;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .event-plus { transition: rotate 170ms ease; }
 }
 
 [data-page="events"] .event-row[open] .event-title {
@@ -86,6 +90,7 @@
 .event-description {
   margin-inline: var(--date-track) 5.1%;
   padding-block: 1.72cqw 3.2cqw;
+  cursor: pointer;
 }
 
 .event-description p {
@@ -105,13 +110,6 @@
   --pill-height: 4.08cqw;
   --pill-size: 1.2447cqw;
   --pill-gap: 1.325em;
-}
-
-.event-row[open] .event-more::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
 }
 
 .event-description p + .event-more {

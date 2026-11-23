@@ -5,11 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <title>Клуб Гардари</title>
-  <link rel="stylesheet" href="assets/base.css?v=20261123-frame-joins">
+  <link rel="stylesheet" href="assets/base.css?v=20261123-continuous">
   <link rel="stylesheet" href="assets/cards.css?v=20261123-frame-joins">
-  <script defer src="assets/shared.js"></script>
-  <script defer src="assets/illustrated-frames.js?v=20261123-frame-joins"></script>
-  <script defer src="assets/cards.js?v=20261123-frame-joins"></script>
+  <link rel="stylesheet" href="assets/home-entrance.css?v=20261123-continuous">
+  <script>
+    (() => {
+      const navigation = performance.getEntriesByType('navigation')[0];
+      if (location.hash || navigation?.type === 'back_forward' || document.hidden ||
+          matchMedia('(prefers-reduced-motion: reduce)').matches || !Element.prototype.animate) return;
+      const root = document.documentElement;
+      root.classList.add('home-entrance-pending');
+      setTimeout(() => root.classList.remove('home-entrance-pending'), 2400);
+    })();
+  </script>
+  <script defer src="assets/shared.js?v=20261123-inner-entrance"></script>
+  <script defer src="assets/illustrated-frames.js?v=20261123-continuous"></script>
+  <script defer src="assets/cards.js?v=20261123-hover-joins"></script>
+  <script defer src="assets/home-entrance.js?v=20261123-mid-drawing"></script>
 </head>
 <body data-page="home">
   <main class="shell home-page">

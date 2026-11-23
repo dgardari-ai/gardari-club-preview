@@ -36,7 +36,6 @@
   detail.id = 'deck-detail';
   detail.hidden = true;
   const panels = [];
-  const hover = matchMedia('(hover: hover)');
   let active = -1;
 
   function scrollCardIntoTrack(rail, first, current) {
@@ -115,6 +114,7 @@
       photo.addEventListener('click', () => select(index, true));
     });
     select(0, false);
+    bindClubHover(rail, '.space-photo:not(.is-open)', photo => select(photos.indexOf(photo), false));
     bindDeckKeys(rail, photos, index => select(index, true));
   }
 
@@ -237,11 +237,8 @@
     select.addEventListener('click', () => activate(index, true, true));
   });
 
-  track.addEventListener('pointermove', event => {
-    // A stationary pointer must not override keyboard selection during reflow.
-    if (event.pointerType !== 'mouse' || !hover.matches || clubCompactArt.matches || !detail.hidden) return;
-    const next = panels.findIndex(({ panel }) => panel.contains(event.target));
-    if (next >= 0) activate(next);
+  bindClubHover(track, '.deck-card:not(.is-open)', item => {
+    if (!detail.querySelector(':focus-visible')) activate(panels.findIndex(({ panel }) => panel === item));
   });
 
   bindDeckKeys(track, panels.map(({ panel }) => panel), index => activate(index, true, true));

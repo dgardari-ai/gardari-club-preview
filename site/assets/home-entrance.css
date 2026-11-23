@@ -1,0 +1,7 @@
+.hero-scene { aspect-ratio: 1350.353 / 605.419; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .home-entrance-pending :is(.hero-scene, .hero-nav, .hero-brand, .hero-copy, .hero .join-action,
+    .hero-outline--desktop, .hero-outline--mobile, [data-deck="home"]),
+  .home-deck-pending { opacity: 0; }
+}

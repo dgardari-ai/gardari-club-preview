@@ -17,25 +17,25 @@ function clubFrameDrawing(src) {
       return response.text();
     }).then(markup => {
       const svg = new DOMParser().parseFromString(markup, 'image/svg+xml').documentElement;
-      const [minX, , width] = svg.getAttribute('viewBox').split(' ').map(Number);
+      const [minX, minY, width, height] = svg.getAttribute('viewBox').split(' ').map(Number);
       const figure = svg.querySelector('g');
       const left = figure.querySelector('[data-frame-join="left"]');
       const right = figure.querySelector('[data-frame-join="right"]');
       const leftPath = left.getAttribute('d');
-      const [, baseline] = leftPath.split(/[^\d.-]+/).filter(Boolean).slice(-2).map(Number);
+      const [leftTip, baseline] = leftPath.split(/[^\d.-]+/).filter(Boolean).slice(-2).map(Number);
       const [, rightTip, rightBaseline, rightTail] =
         /^M(-?[\d.]+) (-?[\d.]+)(.*)$/.exec(right.getAttribute('d'));
       if (baseline !== Number(rightBaseline)) throw new Error('Frame joins must share a baseline');
       left.remove();
       right.remove();
-      return { minX, width, baseline, leftPath, rightTip: Number(rightTip), rightTail, figure };
+      return { minX, minY, width, height, baseline, leftTip, leftPath, rightTip: Number(rightTip), rightTail, figure };
     }));
   }
   return clubFrameDrawingCache.get(url.href);
 }
 
 function clubJoinFrame(svg, image, panel, variant) {
-  clubFrameDrawing(image.src).then(drawing => {
+  return clubFrameDrawing(image.src).then(drawing => {
     const outline = svg.querySelector('path');
     const figure = document.importNode(drawing.figure, true);
     figure.classList.add('joined-figure');
@@ -68,31 +68,43 @@ function clubJoinFrame(svg, image, panel, variant) {
         ? `H${px(width * 272 / 2902.365)} M${px(width * 1194 / 2902.365)} 0H${px(width * 1380 / 2902.365)} M${px(width * 2634 / 2902.365)} 0`
         : '';
 
-      // The drawing's two leads continue directly into the panel outline.
-      const path = `${points(drawing.leftPath)}H${radius}A${radius} ${radius} 0 0 1 0 ${bottom}` +
-        `V${radius}A${radius} ${radius} 0 0 1 ${radius} 0${upperGaps}` +
-        `H${right}A${radius} ${radius} 0 0 1 ${width} ${radius}` +
-        `V${bottom}A${radius} ${radius} 0 0 1 ${right} ${height}` +
-        `H${x(drawing.rightTip)}${points(drawing.rightTail)}`;
+      const leftLead = points(drawing.leftPath);
+      const rightJoin = x(drawing.rightTip);
+      const rightTail = points(drawing.rightTail);
+      const leftEdge = `H${radius}A${radius} ${radius} 0 0 1 0 ${bottom}` +
+        `V${radius}A${radius} ${radius} 0 0 1 ${radius} 0`;
+      const rightEdge = `H${right}A${radius} ${radius} 0 0 1 ${width} ${radius}` +
+        `V${bottom}A${radius} ${radius} 0 0 1 ${right} ${height}H${rightJoin}`;
       svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-      outline.setAttribute('d', path);
+      outline.setAttribute('d', `${leftLead}${leftEdge}${upperGaps}${rightEdge}${rightTail}`);
       figure.setAttribute('transform', `translate(${offsetX} ${offsetY}) scale(${scale})`);
       svg.classList.add('frame-joined');
       panel.classList.add('has-joined-frame');
+      if (!variant) return;
+
+      // Both entrance routes use the same curves and coordinates as the final outline.
+      return {
+        width, height, radius,
+        left: { join: x(drawing.leftTip), lead: leftLead, route: `${leftLead}${leftEdge}H${width / 2}` },
+        right: { join: rightJoin, lead: `M${rightJoin} ${height}${rightTail}`, route: `M${width / 2} 0${rightEdge}${rightTail}` },
+      };
     }
 
     clubFramePainters.set(svg, paint);
     clubFrameObserver.observe(svg);
     paint();
+    return { outline, figure, drawing, paint };
   }).catch(() => {
     // The original SVG and outline remain available if a drawing cannot load.
   });
 }
 
-(() => {
+const clubHeroFrames = (() => {
   const hero = document.querySelector('.hero');
   if (!hero) return;
   const image = hero.querySelector('.hero-scene');
-  clubJoinFrame(hero.querySelector('.hero-outline--desktop'), image, hero, 'desktop-hero');
-  clubJoinFrame(hero.querySelector('.hero-outline--mobile'), image, hero);
+  return {
+    desktop: clubJoinFrame(hero.querySelector('.hero-outline--desktop'), image, hero, 'desktop-hero'),
+    mobile: clubJoinFrame(hero.querySelector('.hero-outline--mobile'), image, hero, 'mobile-hero'),
+  };
 })();

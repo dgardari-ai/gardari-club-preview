@@ -1,4 +1,16 @@
 const clubCompactArt = matchMedia('(max-width: 718px)');
+const clubMouseHover = matchMedia('(hover: hover)');
+
+function bindClubHover(rail, selector, activate) {
+  // React to actual mouse movement, not to a stationary pointer during reflow.
+  rail.addEventListener('pointermove', event => {
+    if (event.pointerType !== 'mouse' || event.buttons || !clubMouseHover.matches || clubCompactArt.matches) return;
+    const item = event.target.closest(selector);
+    if (!item || !rail.contains(item)) return;
+    const focused = rail.querySelector(':focus-visible');
+    if (!focused || item.contains(focused)) activate(item);
+  });
+}
 
 function clubArtwork(image) {
   const source = new URL(image.src);
@@ -27,8 +39,7 @@ function clubOutline(shape = 'rect') {
   return svg;
 }
 
-(() => {
-  const root = new URL('../', document.currentScript.src);
+function mountClubHeader(root, motion) {
   const matchArtworkToViewport = () => document.querySelectorAll('img[data-club-art]').forEach(clubArtwork);
   matchArtworkToViewport();
   clubCompactArt.addEventListener('change', matchArtworkToViewport);
@@ -95,4 +106,86 @@ function clubOutline(shape = 'rect') {
   cup.alt = '';
   cup.className = 'club-cup';
   header.append(nav, title, clubArtwork(cup));
+
+  playInnerEntrance(header, nav, title, cup, motion);
+}
+
+function playInnerEntrance(header, nav, title, cup, motion) {
+  const root = document.documentElement;
+  if (!root.classList.contains('inner-entrance-pending')) return;
+  if (location.hash || motion.matches || document.hidden || window.scrollY > 1) {
+    root.classList.remove('inner-entrance-pending');
+    return;
+  }
+
+  const page = header.parentElement;
+  const animations = [];
+  const events = new AbortController();
+  const { signal } = events;
+  const easing = 'cubic-bezier(.16,1,.3,1)';
+  const circle = [{ opacity: 0, scale: '.9' }, { opacity: 1, scale: '1' }];
+
+  function finish() {
+    if (signal.aborted) return;
+    events.abort();
+    root.classList.remove('inner-entrance-pending');
+    for (const animation of animations) animation.cancel();
+  }
+
+  function reveal(node, frames, delay, duration) {
+    animations.push(node.animate(frames, { delay, duration, easing, fill: 'both' }));
+  }
+
+  page.addEventListener('focusin', finish, { signal });
+  page.addEventListener('pointerdown', finish, { capture: true, signal });
+  window.addEventListener('pagehide', finish, { signal });
+  window.addEventListener('hashchange', finish, { signal });
+  window.addEventListener('scroll', () => { if (window.scrollY > 1) finish(); }, { passive: true, signal });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) finish(); }, { signal });
+  motion.addEventListener('change', () => { if (motion.matches) finish(); }, { signal });
+
+  try {
+    const links = [...nav.children];
+    const stagger = 65;
+    const iconDuration = 170;
+    const titleDuration = 190;
+    const cupDuration = 160;
+    links.forEach((link, index) => reveal(link, circle, index * stagger, iconDuration));
+
+    const titleStart = (links.length - 1) * stagger + iconDuration;
+    reveal(title, [
+      { opacity: 0, clipPath: 'inset(-2px 100% -2px 0)' },
+      { opacity: 1, clipPath: 'inset(-2px)' },
+    ], titleStart, titleDuration);
+    const cupStart = titleStart + titleDuration;
+    reveal(cup, circle, cupStart, cupDuration);
+
+    for (const block of page.children) {
+      if (block === header) continue;
+      reveal(block, [{ opacity: 0, translate: '0 6px' }, { opacity: 1, translate: '0 0' }], cupStart + cupDuration, 240);
+    }
+    const start = document.timeline.currentTime;
+    for (const animation of animations) animation.startTime = start;
+    root.classList.remove('inner-entrance-pending');
+    Promise.all(animations.map(animation => animation.finished)).then(finish, finish);
+  } catch {
+    finish();
+  }
+}
+
+(() => {
+  const script = document.currentScript;
+  const root = new URL('../', script.src);
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const navigation = performance.getEntriesByType('navigation')[0];
+  if (script.hasAttribute('data-inner-entrance') && !location.hash && !motion.matches && !document.hidden &&
+      navigation?.type !== 'back_forward' && Element.prototype.animate) {
+    const html = document.documentElement;
+    html.classList.add('inner-entrance-pending');
+    setTimeout(() => html.classList.remove('inner-entrance-pending'), 1500);
+  }
+
+  const mount = () => mountClubHeader(root, motion);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount, { once: true });
+  else mount();
 })();
