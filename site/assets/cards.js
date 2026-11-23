@@ -155,7 +155,9 @@
   function image(file, className) {
     const img = document.createElement('img');
     img.className = className;
-    img.src = new URL(file + '.svg', artURL).href;
+    const url = new URL(file + '.svg', artURL);
+    if (className === 'deck-art') url.searchParams.set('v', '20261123-frame-joins');
+    img.src = url.href;
     img.alt = '';
     img.draggable = false;
     return clubArtwork(img);
@@ -201,7 +203,8 @@
     });
     const art = document.createElement('span');
     art.className = 'deck-artwork';
-    art.append(image('card-' + card.art, 'deck-art'));
+    const illustration = image('card-' + card.art, 'deck-art');
+    art.append(illustration);
 
     const action = document.createElement(card.href ? 'a' : 'button');
     action.className = 'deck-action';
@@ -223,8 +226,13 @@
     }
     action.append(image(card.href ? 'arrow-right' : 'arrow-down', 'deck-action-icon'));
     content.append(numeral, title, intro, art, action);
-    panel.append(clubOutline(), select, content);
+    const fallback = clubOutline();
+    fallback.classList.add('deck-frame-fallback');
+    const frame = clubOutline('path');
+    frame.classList.add('deck-frame-joined');
+    panel.append(fallback, frame, select, content);
     track.append(panel);
+    clubJoinFrame(frame, illustration, panel);
     panels.push({ panel, select, content, action });
     select.addEventListener('click', () => activate(index, true, true));
   });

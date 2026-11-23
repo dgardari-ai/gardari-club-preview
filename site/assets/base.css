@@ -51,6 +51,10 @@ img { display: block; max-width: 100% }
 }
 .stroke-outline rect { rx: var(--panel-radius) }
 .hero-outline--mobile { display: none }
+.hero.has-joined-frame .hero-scene { visibility: hidden; }
+.hero-outline--mobile.frame-joined rect { visibility: hidden; }
+.hero:has(.hero-scene.is-tracing) .joined-figure { visibility: hidden; }
+
 .hero-nav, .hero-brand {
   position: absolute;
   display: flex;
@@ -150,7 +154,7 @@ img { display: block; max-width: 100% }
   .hero-outline--desktop { display: none }
   .hero-outline--mobile { display: block }
   .hero-scene { position: relative; order: 4; align-self: flex-start; width: 92%; left: 0; bottom: auto; margin-top: 18px; margin-bottom: -2.3% }
-  .hero::after { position: absolute; content: ""; bottom: calc(0px - var(--line)); height: calc(2 * var(--line)); background: var(--paper); left: 18px; width: calc((100% - 36px) * .92); pointer-events: none }
+  .hero:not(.has-joined-frame)::after { position: absolute; content: ""; bottom: calc(0px - var(--line)); height: calc(2 * var(--line)); background: var(--paper); left: 18px; width: calc((100% - 36px) * .92); pointer-events: none }
   [data-inner-header] { display: grid; grid-template-columns: 1fr auto; gap: 14px 9px }
   .inner-nav { gap: clamp(9px, 3.5vw, 21px) }
   [data-inner-header] .nameplate { grid-column: 1/-1; grid-row: 2; font-size: clamp(15px,4.15vw,21px) }

@@ -24,6 +24,11 @@
   transition: flex-basis 400ms cubic-bezier(.22,.68,.24,1);
 }
 .deck-card.is-open { flex-basis: var(--open-width); z-index: 1; }
+.deck-card > .deck-frame-joined { display: none; }
+.deck-card.is-open > .deck-frame-joined { display: block; }
+.deck-card.is-open.has-joined-frame > .deck-frame-fallback,
+.deck-card.has-joined-frame .deck-artwork { visibility: hidden; }
+
 /* Frame-relative placement; SVG bounds include two units of stroke padding. */
 .deck-card[data-card="meetings"] { --art-left: 28.195%; --art-width: 65.108%; --baseline-drop: 6.120%; --cut-from: 0.212%; --cut-to: 0.212%; }
 .deck-card[data-card="lectures"] { --art-left: 28.161%; --art-width: 64.647%; --baseline-drop: 0.450%; --cut-from: 0.213%; --cut-to: 0.213%; }
