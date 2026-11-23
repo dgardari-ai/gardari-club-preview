@@ -1,0 +1,161 @@
+@font-face {
+  font-family: "Club Mono";
+  src: url("fonts/JetBrainsMono-latin-400-500.woff2") format("woff2");
+  font-weight: 400 500;
+  font-display: swap;
+}
+:root {
+  color-scheme: light;
+  --paper: #e1d5be;
+  --ink: #1b1a19;
+  /* 0.7 pt at 400 dpi, scaled from the 2902.365 px Affinity field. */
+  --line: max(.7px, calc(100cqw * 3.8888889 / 2902.365));
+  --panel-radius: calc(100cqw * 52 / 2902.365);
+  --serif: "American Typewriter", "AmericanTypewriter", Georgia, serif;
+  --sans: "Arial Black", "Arial-Black", Arial, sans-serif;
+  --mono: "Club Mono", "JetBrains Mono", monospace;
+}
+* { box-sizing: border-box }
+html { background: var(--paper); text-size-adjust: 100%; -webkit-text-size-adjust: 100% }
+body { margin: 0; color: var(--ink); font-family: var(--serif); }
+h1, h2, h3, p { margin: 0 }
+a { color: inherit }
+button { color: inherit; font: inherit; cursor: pointer }
+img { display: block; max-width: 100% }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+[hidden] { display: none !important }
+.shell {
+  --field-width: min(964.1025px, calc(100% - 48px));
+  --nameplate-height: 5cqw;
+  width: var(--field-width);
+  margin: 0 auto;
+  padding-bottom: clamp(30px, 6vh, 70px);
+  container-type: inline-size;
+}
+.home-page {
+  /* 4.3% above the icon row, plus half of the 5%-wide icons. */
+  padding-top: calc(var(--field-width) * .068);
+}
+.inner-page { padding-top: clamp(28px, 5.8vh, 68px) }
+
+.hero {
+  position: relative;
+  aspect-ratio: 2902.365 / 1126.082;
+  border-radius: var(--panel-radius);
+}
+.stroke-outline {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  overflow: visible; pointer-events: none;
+  fill: none; stroke: var(--ink); stroke-width: var(--line);
+}
+.stroke-outline rect { rx: var(--panel-radius) }
+.hero-outline--mobile { display: none }
+.hero-nav, .hero-brand {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  background: var(--paper);
+  top: 0;
+  transform: translateY(-50%);
+}
+.hero-nav { left: 9.34%; gap: 1.72cqw }
+.icon-link { display: block; text-decoration: none; border-radius: 50%; flex-shrink: 0; }
+.icon-link img, .club-cup { width: 5cqw; height: 5cqw }
+.icon-link img { transition: transform .16s ease }
+@media (hover:hover) { .icon-link:hover img { transform: translateY(-2px) } }
+.hero-brand { left: 47.5%; right: 9.25%; gap: 1.72cqw; background: transparent }
+.hero-brand .club-cup { background: var(--paper); border-radius: 50%; width: 5.08cqw; height: 5.08cqw }
+.nameplate {
+  position: relative;
+  display: block;
+  align-content: center;
+  text-align: center;
+  flex: 1; min-width: 0;
+  min-height: var(--nameplate-height);
+  margin: 0;
+  padding: 0 1em;
+  background: var(--paper);
+  border-radius: 100vmax;
+  font: 400 2.32cqw/1.08 var(--serif);
+}
+.nameplate .stroke-outline rect { rx: calc(var(--nameplate-height) / 2) }
+.hero-brand .nameplate { padding-inline: 0 }
+.nameplate strong { font-weight: 600 }
+[data-event] .nameplate { font-size: clamp(13px, 1.83cqw, 19px); line-height: 1.12; padding-block: .25em }
+.hero-copy {
+  position: absolute;
+  right: 9.1%; top: 20.6%;
+  text-align: right;
+  font-size: 1.917cqw;
+  line-height: 1.2;
+}
+.hero-copy p + p { margin-top: 1.47cqw }
+.hero-scene {
+  pointer-events: none;
+  position: absolute; z-index: 1;
+  width: calc(100% * 1350.353 / 2902.365); left: 7.43%; top: 49.235%;
+}
+.pill-action {
+  --pill-height: 4.05cqw;
+  --pill-size: 1.245cqw;
+  --pill-gap: .88em;
+  width: 26.52cqw; max-width: 100%; min-height: var(--pill-height);
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 0; border-radius: 100vmax; padding: .4em .8em;
+  color: var(--paper); background: var(--ink);
+  text-align: center; text-transform: uppercase; text-decoration: none;
+  font: 600 var(--pill-size)/1 var(--serif);
+}
+.pill-label { white-space: nowrap }
+.pill-mark {
+  display: inline-block;
+  width: .8333em; height: 1em;
+  margin-inline-start: var(--pill-gap);
+  /* The midpoint follows the actual cap height above the label's baseline. */
+  vertical-align: -.14em;
+  vertical-align: calc((1cap - 1em) / 2);
+  background: currentColor;
+  mask: url("art/pill-chevron.svg") center / contain no-repeat;
+}
+.pill-action:focus-visible { outline-color: var(--ink) }
+.pill-action:disabled { opacity: .6; cursor: default }
+.join-action { display: flex; --pill-gap: .72em }
+.hero .join-action { position: absolute; right: 9.23%; top: 75.14% }
+.home-page [data-deck] { margin-top: 3.54cqw }
+.inner-page [data-deck] { margin-top: 4.58cqw }
+[data-inner-header] { display: flex; gap: 1.68cqw; align-items: center; }
+.inner-nav { display: flex; align-items: center; gap: 1.71cqw }
+@media (max-width: 718px) {
+  .shell { --field-width: calc(100% - 28px); --nameplate-height: 40px; --panel-radius: 18px; --line: .7px }
+  .home-page { padding-top: 36px }
+  .inner-page { padding-top: 24px }
+  .hero {
+    display: flex; align-items: flex-end; flex-direction: column;
+    aspect-ratio: auto;
+    margin-top: 22px; padding: 35px 18px 0;
+  }
+  .hero-nav {
+    position: static; order: 1; transform: none; align-self: flex-start;
+    width: max-content; gap: clamp(10px,3.25vw,20px); background: transparent;
+  }
+  .icon-link img, .club-cup, .hero-brand .club-cup { width: 40px; height: 40px }
+  .hero-brand { left: 5%; right: 5%; gap: 10px }
+  .nameplate { font-size: clamp(17px, 4.5vw, 24px) }
+  .hero-copy { position: static; order: 2; font-size: clamp(17px, 3vw, 20px); line-height: 1.23; margin-top: 24px; max-width: 95%; }
+  .hero-copy br { display: none }
+  .hero-copy p + p { margin-top: .75em }
+  .pill-action { width: min(100%, 290px); --pill-height: 40px; --pill-size: 13px }
+  .join-action { --pill-gap: .92em }
+  .hero .join-action { position: static; order: 3; margin-top: 21px }
+  .hero-outline--desktop { display: none }
+  .hero-outline--mobile { display: block }
+  .hero-scene { position: relative; order: 4; align-self: flex-start; width: 92%; left: 0; top: auto; margin-top: 18px; margin-bottom: -2.3% }
+  .hero::after { position: absolute; content: ""; bottom: calc(0px - var(--line)); height: calc(2 * var(--line)); background: var(--paper); left: 18px; width: calc((100% - 36px) * .92); pointer-events: none }
+  .home-page [data-deck] { margin-top: 21px }
+  .inner-page [data-deck] { margin-top: 28px }
+  [data-inner-header] { display: grid; grid-template-columns: 1fr auto; gap: 14px 9px }
+  .inner-nav { gap: clamp(9px, 3.5vw, 21px) }
+  [data-inner-header] .nameplate { grid-column: 1/-1; grid-row: 2; font-size: clamp(15px,4.15vw,21px) }
+  [data-inner-header] .club-cup { grid-row: 1; grid-column: 2 }
+}
+@media (prefers-reduced-motion: reduce) { .icon-link img { transition: none } }

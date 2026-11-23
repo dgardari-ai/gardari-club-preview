@@ -1,0 +1,256 @@
+/* All desktop dimensions refer to the 2902-unit inner field of «Клуб Гардари». */
+.club-deck {
+  --gap: 1.465cqw;
+  --open-width: 50cqw;
+  --card-height: 46.52cqw;
+  --copy-left: 5.56cqw;
+  --arrow-size: 5cqw;
+  --arrow-left: 5.86cqw;
+  --arrow-bottom: 4.23cqw;
+  display: flex;
+  gap: var(--gap);
+  position: relative;
+  isolation: isolate;
+}
+
+.deck-card {
+  position: relative;
+  flex: 0 0 calc((100% - var(--open-width) - 4 * var(--gap)) / 4);
+  height: var(--card-height);
+  min-width: 0;
+  border-radius: var(--panel-radius);
+  scroll-margin-block-start: 24px;
+  transition: flex-basis 400ms cubic-bezier(.22,.68,.24,1);
+}
+.deck-card.is-open { flex-basis: var(--open-width); z-index: 1; }
+/* Frame-relative placement; SVG bounds include two units of stroke padding. */
+.deck-card[data-card="meetings"] { --art-left: 28.195%; --art-width: 65.108%; --baseline-drop: 6.120%; --cut-from: 0.212%; --cut-to: 0.212%; }
+.deck-card[data-card="lectures"] { --art-left: 28.161%; --art-width: 64.647%; --baseline-drop: 0.450%; --cut-from: 0.213%; --cut-to: 0.213%; }
+.deck-card[data-card="evenings"] { --art-left: 40.282%; --art-width: 54.243%; --baseline-drop: 2.820%; --cut-from: 0.254%; --cut-to: 0.254%; }
+.deck-card[data-card="archive"] { --art-left: 38.740%; --art-width: 52.457%; --baseline-drop: 0.646%; --cut-from: 0.263%; --cut-to: 0.263%; }
+.deck-card[data-card="about"] { --art-left: 47.599%; --art-width: 39.901%; --baseline-drop: 0.731%; --cut-from: 0.346%; --cut-to: 7.781%; }
+.deck-card[data-card="idea"] { --art-left: 32.906%; --art-width: 60.413%; --baseline-drop: 6.120%; --cut-from: 0.212%; --cut-to: 0.212%; }
+.deck-card[data-card="join"] { --art-left: 52.897%; --art-width: 39.901%; --baseline-drop: 0.731%; --cut-from: 0.346%; --cut-to: 7.781%; }
+.deck-card[data-card="contacts"] { --art-left: 52.065%; --art-width: 39.573%; --baseline-drop: 0.889%; --cut-from: 0.349%; --cut-to: 0.349%; }
+.deck-card[data-card="events"] { --art-left: 50.521%; --art-width: 39.706%; --baseline-drop: 12.760%; --cut-from: 0.347%; --cut-to: 0.347%; }
+.deck-card[data-card="denis"] { --art-left: 57.630%; --art-width: 32.678%; --baseline-drop: 1.013%; --cut-from: 3.828%; --cut-to: 0.422%; }
+
+.deck-select,
+.deck-action {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  background: none;
+  cursor: pointer;
+}
+.deck-select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+.deck-select[hidden] { display: none; }
+.deck-select span {
+  position: absolute;
+  left: 50%;
+  bottom: var(--arrow-bottom);
+  display: block;
+  writing-mode: vertical-rl;
+  transform: translateX(-50%) rotate(180deg);
+  font: 400 2.497cqw/1 var(--serif);
+  letter-spacing: -.05em;
+  text-transform: uppercase;
+  white-space: pre;
+}
+.deck-content {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--open-width);
+  height: 100%;
+  display: none;
+  pointer-events: none;
+}
+.is-open .deck-content {
+  display: block;
+  pointer-events: auto;
+}
+.deck-artwork {
+  position: absolute;
+  left: var(--art-left);
+  width: var(--art-width);
+  bottom: 0;
+  height: 0;
+  pointer-events: none;
+}
+.deck-artwork::before {
+  content: '';
+  position: absolute;
+  left: var(--cut-from);
+  right: var(--cut-to);
+  top: calc(-1.5 * var(--line));
+  height: calc(3 * var(--line));
+  background: var(--paper);
+}
+.deck-art {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  transform: translateY(var(--baseline-drop));
+}
+.deck-number, .deck-title, .deck-intro {
+  position: absolute;
+  left: var(--copy-left);
+  margin: 0;
+  padding: 0;
+  color: var(--ink);
+}
+.deck-number {
+  top: 4.68cqw;
+  font: 400 6.577cqw/1 var(--serif);
+  letter-spacing: -.05em;
+}
+.deck-title {
+  top: 12.1cqw;
+  font: 900 3.063cqw/1.11 var(--sans);
+  letter-spacing: -.05em;
+  text-transform: uppercase;
+  white-space: pre;
+}
+.deck-intro {
+  top: 20.38cqw;
+  font: 400 1.723cqw/1.12 var(--serif);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.deck-intro p + p { margin-top: .45em; }
+[data-card="about"] .deck-intro { top: 17.25cqw; }
+[data-deck="about"] .club-deck { --copy-left: 5.86cqw; }
+[data-deck="about"] .deck-title { top: 11.74cqw; }
+[data-deck="about"] .deck-intro { top: 20.25cqw; }
+.deck-action {
+  position: absolute;
+  left: var(--arrow-left);
+  bottom: var(--arrow-bottom);
+  width: var(--arrow-size);
+  height: var(--arrow-size);
+  border-radius: 50%;
+}
+.deck-action-icon { display: block; width: 100%; height: 100%; }
+[data-deck="about"] .deck-action {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--panel-radius);
+}
+[data-deck="about"] .deck-action-icon {
+  position: absolute;
+  left: var(--arrow-left);
+  bottom: var(--arrow-bottom);
+  width: var(--arrow-size);
+  height: var(--arrow-size);
+}
+.deck-detail {
+  margin: 4.25cqw 3.75cqw 0 5.86cqw;
+  font: 400 1.723cqw/1.124 var(--serif);
+}
+.deck-detail h3 {
+  margin-block-end: 1.22cqw;
+  font: 900 2.488cqw/1.11 var(--sans);
+  letter-spacing: -.05em;
+}
+.deck-detail p + p { margin-top: 1.42cqw; }
+.deck-detail p + h3 { margin-top: 2.32cqw; }
+.deck-detail .join-action { margin-top: 2.68cqw; }
+.contact-section h3 { text-transform: uppercase; }
+.contact-section + .contact-section { margin-top: 4.35cqw; }
+.contact-map { margin-top: 2.68cqw; }
+.club-resources { margin: 0; }
+.club-resources dt, .contact-section strong { font-weight: 600; }
+.club-resources dd { margin: 1.35cqw 0 0; }
+.club-resources > div + div { margin-top: 2.6cqw; }
+.deck-detail:has(.denis-bio) { margin: 1.51cqw 0 0; }
+.denis-bio {
+  display: grid;
+  grid-template-columns: 37.52cqw 1fr;
+  align-items: start;
+}
+.denis-portrait {
+  position: relative;
+  width: 36.37cqw;
+  margin: 0 0 0 -4.47cqw;
+}
+.denis-portrait img { width: 100%; height: auto; transform: scaleX(-1); }
+.denis-portrait::after {
+  position: absolute;
+  top: 50.90%;
+  left: 9.42%;
+  width: 19.13%;
+  height: 22.39%;
+  background: var(--paper);
+  content: '';
+}
+.denis-copy { width: 64.2cqw; padding-top: 7.95cqw; }
+
+@media (max-width: 718px) {
+  .club-deck {
+    --gap: 8px;
+    --open-width: calc(100cqw - 56px);
+    --card-height: max(390px, calc(var(--open-width) * .931));
+    --copy-left: clamp(18px, 5cqw, 35px);
+    --arrow-left: var(--copy-left);
+    --arrow-bottom: 27px;
+    --arrow-size: 44px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    padding: 2px var(--line) 12px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--ink) transparent;
+  }
+  [data-deck="about"] .club-deck { --copy-left: clamp(18px, 5cqw, 35px); }
+  .deck-card, .deck-card.is-open { flex: none; width: 46px; transition: none; }
+  .deck-card.is-open { width: var(--open-width); }
+  .deck-content { width: 100%; }
+  .deck-intro br { display: none; }
+  .deck-select span { font-size: clamp(15px, 3.35cqw, 19px); }
+  .deck-number { top: 18px; font-size: clamp(48px, 10.8cqw, 68px); }
+  .deck-title, [data-deck="about"] .deck-title {
+    top: clamp(80px, 16.5cqw, 102px);
+    font-size: clamp(22px, 5.35cqw, 32px);
+    line-height: 1.02;
+  }
+  .deck-intro, [data-deck="about"] .deck-intro, [data-card="about"] .deck-intro {
+    top: clamp(138px, 29cqw, 178px);
+    right: var(--copy-left);
+    font-size: clamp(14px, 3.4cqw, 17px);
+    line-height: 1.18;
+    white-space: normal;
+    text-wrap: pretty;
+  }
+  [data-deck="about"] .deck-card:is([data-card="idea"], [data-card="join"]) { height: max(var(--card-height), 445px); }
+  [data-deck="about"] .club-deck { --card-height: max(445px, calc(var(--open-width) * .931)); }
+  [data-card="idea"] .deck-artwork { --art-width: 53%; --art-left: 41%; }
+  .deck-card:focus-within { outline-offset: -3px; }
+  .deck-select:focus-visible, .deck-action:focus-visible { outline-offset: -3px; }
+  .deck-detail { margin: 20px var(--copy-left, 6cqw) 0; font-size: 16px; line-height: 1.32; }
+  .deck-detail br { display: none; }
+  .deck-detail h3 { font-size: 22px; margin-block-end: 12px; }
+  .deck-detail p + p { margin-top: 12px; }
+  .deck-detail p + h3 { margin-top: 20px; }
+  .deck-detail .join-action { margin-top: 20px; }
+  .contact-section + .contact-section { margin-top: 30px; }
+  .contact-map { margin-top: 20px; }
+  .club-resources dd { margin-top: 12px; }
+  .club-resources > div + div { margin-top: 22px; }
+  .deck-detail:has(.denis-bio) { margin: 20px 6cqw 0; }
+  .denis-bio { grid-template-columns: 1fr; }
+  .denis-portrait { width: min(100%, 320px); margin: 0 auto; }
+  .denis-copy { width: auto; padding: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .deck-card { transition: none; }
+}
