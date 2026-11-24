@@ -18,9 +18,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://dgardari-ai.github.io/gardari-club-preview/site/assets/art/club-link-preview.png">
   <meta name="twitter:image:alt" content="Чашка и название «Клуб Гардари» над контурным рисунком беседующих людей">
-  <link rel="stylesheet" href="assets/base.css?v=20261123-continuous">
-  <link rel="stylesheet" href="assets/cards.css?v=20261123-frame-joins">
-  <link rel="stylesheet" href="assets/home-entrance.css?v=20261123-continuous">
+  <link rel="stylesheet" href="assets/base.css?v=20261124-phone-header-picker">
+  <link rel="stylesheet" href="assets/cards.css?v=20261124-shared-card-layout">
+  <link rel="stylesheet" href="assets/home-entrance.css?v=20261123-phone-review">
   <script>
     (() => {
       const navigation = performance.getEntriesByType('navigation')[0];
@@ -31,10 +31,10 @@
       setTimeout(() => root.classList.remove('home-entrance-pending'), 2400);
     })();
   </script>
-  <script defer src="assets/shared.js?v=20261123-inner-entrance"></script>
-  <script defer src="assets/illustrated-frames.js?v=20261123-continuous"></script>
-  <script defer src="assets/cards.js?v=20261123-hover-joins"></script>
-  <script defer src="assets/home-entrance.js?v=20261123-mid-drawing"></script>
+  <script defer src="assets/shared.js?v=20261124-phone-header-picker"></script>
+  <script defer src="assets/illustrated-frames.js?v=20261123-phone-review"></script>
+  <script defer src="assets/cards.js?v=20261124-shared-card-copy"></script>
+  <script defer src="assets/home-entrance.js?v=20261123-phone-review"></script>
 </head>
 <body data-page="home">
   <main class="shell home-page">
@@ -44,22 +44,25 @@
       </svg>
       <svg class="stroke-outline hero-outline--mobile" aria-hidden="true" focusable="false"><path/><rect width="100%" height="100%"/></svg>
       <nav class="hero-nav" aria-label="Меню Клуба">
-        <a class="icon-link" href="events/index.html" aria-label="План мероприятий" title="План мероприятий"><img data-club-art src="assets/art/nav-plan.svg" alt=""></a>
-        <a class="icon-link" href="about/index.html#contacts" aria-label="Адреса и контакты" title="Адреса и контакты"><img data-club-art src="assets/art/nav-location.svg" alt=""></a>
-        <a class="icon-link" href="mailto:club@gardari.art" aria-label="Написать в Клуб" title="Написать в Клуб"><img data-club-art src="assets/art/nav-email.svg" alt=""></a>
-        <a class="icon-link" href="https://t.me/gardariart" aria-label="Телеграм-канал Дениса Гардари" title="Телеграм-канал Дениса Гардари"><img data-club-art src="assets/art/nav-telegram.svg" alt=""></a>
-        <a class="icon-link" href="about/index.html#join" aria-label="Варианты участия" title="Варианты участия"><img data-club-art src="assets/art/nav-join.svg" alt=""></a>
+        <a class="icon-link" href="events/index.html" aria-label="План мероприятий" title="План мероприятий"><svg class="club-line-mark" aria-hidden="true" focusable="false"><use href="assets/club-icons.svg?v=20261123-phone-review#nav-plan"/></svg></a>
+        <a class="icon-link" href="about/index.html#contacts" aria-label="Адреса и контакты" title="Адреса и контакты"><svg class="club-line-mark" aria-hidden="true" focusable="false"><use href="assets/club-icons.svg?v=20261123-phone-review#nav-location"/></svg></a>
+        <a class="icon-link" href="mailto:club@gardari.art" aria-label="Написать в Клуб" title="Написать в Клуб"><svg class="club-line-mark" aria-hidden="true" focusable="false"><use href="assets/club-icons.svg?v=20261123-phone-review#nav-email"/></svg></a>
+        <a class="icon-link" href="https://t.me/gardariart" aria-label="Телеграм-канал Дениса Гардари" title="Телеграм-канал Дениса Гардари"><svg class="club-line-mark" aria-hidden="true" focusable="false"><use href="assets/club-icons.svg?v=20261123-phone-review#nav-telegram"/></svg></a>
+        <a class="icon-link" href="about/index.html#join" aria-label="Варианты участия" title="Варианты участия"><svg class="club-line-mark" aria-hidden="true" focusable="false"><use href="assets/club-icons.svg?v=20261123-phone-review#nav-join"/></svg></a>
       </nav>
       <div class="hero-brand">
-        <img data-club-art class="club-cup" src="assets/art/cup-solid.svg" alt="">
+        <svg class="club-line-mark club-cup" aria-hidden="true" focusable="false"><use href="assets/club-icons.svg?v=20261123-phone-review#cup-solid"/></svg>
         <h1 class="nameplate" id="club-title">... клуб гардари ...<svg class="stroke-outline" aria-hidden="true" focusable="false"><rect width="100%" height="100%"/></svg></h1>
       </div>
       <div class="hero-copy">
-        <p>Настоящее человеческое мышление не бывает индивидуальным, оно<br> всегда —коллективно. Даже в одиночестве — мы всегда в диалоге.</p>
-        <p>Поэтому так важно «правильно<br> разговаривать», поэтому так важно<br> смотреть в «живые глаза».</p>
+        <p>Настоящее человеческое <br class="phone-copy-break">мышление не бывает <br class="phone-copy-break">индивидуальным, <br class="phone-copy-break">оно<br> всегда —коллективно. <br class="phone-copy-break">Даже в одиночестве — мы <br class="phone-copy-break">всегда в диалоге.</p>
+        <p>Поэтому так важно <br class="phone-copy-break">«правильно<br> разговаривать», <br class="phone-copy-break">поэтому так важно<br> смотреть <br class="phone-copy-break">в «живые глаза».</p>
       </div>
       <a class="pill-action join-action" href="about/index.html#join"><span class="pill-label">Присоединиться к клубу<span class="pill-mark" aria-hidden="true"></span></span></a>
-      <img data-club-art class="hero-scene" src="assets/art/hero.svg?v=20261123-frame-joins" alt="">
+      <picture class="hero-drawing">
+        <source media="(max-width: 718px)" srcset="assets/art/hero-mobile.svg">
+        <img data-club-art class="hero-scene" src="assets/art/hero.svg?v=20261123-frame-joins" alt="">
+      </picture>
     </section>
     <section data-deck="home" aria-label="Разделы Клуба"></section>
   </main>

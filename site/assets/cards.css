@@ -133,7 +133,15 @@
   letter-spacing: 0;
   white-space: nowrap;
 }
-.deck-intro p + p { margin-top: .45em; }
+[data-deck="home"] > .club-deck .deck-intro {
+  right: var(--copy-left);
+  overflow: hidden;
+  white-space: normal;
+}
+[data-deck="home"] > .club-deck .deck-intro p {
+  width: calc(var(--open-width) - 2 * var(--copy-left));
+}
+.deck-intro p + p { margin-block-start: var(--phone-paragraph-gap, .45em); }
 [data-card="about"] .deck-intro { top: 17.25cqw; }
 [data-deck="about"] > .club-deck { --copy-left: 5.86cqw; }
 [data-deck="about"] .deck-title { top: 11.74cqw; }
@@ -160,15 +168,15 @@
   font: 400 1.723cqw/1.124 var(--serif);
 }
 .deck-detail h3 {
-  margin-block-end: 1.22cqw;
+  margin-block-end: var(--phone-heading-gap, 1.22cqw);
   font: 900 2.488cqw/1.11 var(--sans);
   letter-spacing: -.05em;
 }
-.deck-detail p + p { margin-top: 1.42cqw; }
-.deck-detail p + h3 { margin-top: 2.32cqw; }
+.deck-detail p + p { margin-block-start: var(--phone-paragraph-gap, 1.42cqw); }
+.deck-detail p + h3 { margin-block-start: var(--phone-section-gap, 2.32cqw); }
 .deck-detail .join-action { margin-top: 2.68cqw; }
-.club-space { margin-top: 3.15cqw; scroll-margin-block-start: 24px; }
-.club-space h3 { margin-block-end: 2.65cqw; }
+.club-space { margin-block-start: var(--phone-section-gap, 3.15cqw); scroll-margin-block-start: 24px; }
+.club-space h3 { margin-block-end: var(--phone-heading-gap, 2.65cqw); }
 .space-track {
   margin-inline-start: calc(0px - var(--detail-start));
   margin-inline-end: calc(0px - var(--detail-end));
@@ -184,12 +192,12 @@
 .space-photo .stroke-outline { z-index: 1; }
 .space-tones { position: absolute; }
 .contact-section h3 { text-transform: uppercase; }
-.contact-section + .contact-section { margin-top: 4.35cqw; }
-.contact-map { margin-top: 2.68cqw; }
+.contact-section + .contact-section { margin-block-start: var(--phone-section-gap, 4.35cqw); }
+.contact-map { margin-block-start: var(--phone-section-gap, 2.68cqw); }
 .club-resources { margin: 0; }
 .club-resources dt, .contact-section strong { font-weight: 600; }
-.club-resources dd { margin: 1.35cqw 0 0; }
-.club-resources > div + div { margin-top: 2.6cqw; }
+.club-resources dd { margin: var(--phone-heading-gap, 1.35cqw) 0 0; }
+.club-resources > div + div { margin-block-start: var(--phone-section-gap, 2.6cqw); }
 .deck-detail:has(.denis-bio) { margin: 1.51cqw 0 0; }
 .denis-bio {
   display: grid;
@@ -214,61 +222,153 @@
 .denis-copy { width: 64.2cqw; padding-top: 7.95cqw; }
 
 @media (max-width: 718px) {
-  .club-deck {
-    --gap: 8px;
-    --open-width: calc(100cqw - 56px);
-    --card-height: max(390px, calc(var(--open-width) * .931));
-    --copy-left: clamp(18px, 5cqw, 35px);
-    --arrow-left: var(--copy-left);
-    --arrow-bottom: 27px;
-    --arrow-size: 44px;
+  [data-deck] { --phone-card-overhang: 5.5cqw; }
+  /* Keep the carousel at the same position when the About text changes length. */
+  [data-deck="about"] .phone-deck-content { min-block-size: calc(100svh - var(--phone-group-gap)); }
+  .phone-deck-picker {
+    display: flex;
+    width: var(--phone-action-width);
+    justify-content: space-between;
+    gap: 0;
+    margin-inline: auto;
+    margin-block-end: var(--phone-section-gap);
+  }
+  .phone-deck-picker button {
+    width: 15.6%;
+    aspect-ratio: 1;
+    flex: none;
+    position: relative;
+    border: 0;
+    border-radius: 50%;
+    padding: 0;
+    background: none;
+    font: 400 clamp(14px, 4.61cqw, 22px)/1 var(--serif);
+    font-variant-numeric: lining-nums tabular-nums;
+    letter-spacing: -.05em;
+  }
+  .phone-deck-picker button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .phone-deck-picker button:focus-visible { outline-color: var(--ink); }
+
+  .phone-deck-anchors { position: relative; }
+  .phone-deck-anchors > span {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    width: 1px;
+    height: 1px;
+    scroll-margin-block-start: 24px;
+  }
+
+  .phone-card-track, .space-track {
     overflow-x: auto;
+    overflow-y: hidden;
     overscroll-behavior-inline: contain;
-    padding: 2px var(--line) 12px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--ink) transparent;
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: none;
   }
-  [data-deck="about"] > .club-deck { --copy-left: clamp(18px, 5cqw, 35px); }
-  .deck-card, .deck-card.is-open { flex: none; width: 46px; transition: none; }
-  .deck-card.is-open { width: var(--open-width); }
-  .deck-intro br { display: none; }
-  .deck-select span { font-size: clamp(15px, 3.35cqw, 19px); }
-  .deck-number { top: 18px; font-size: clamp(48px, 10.8cqw, 68px); }
-  .deck-title, [data-deck="about"] .deck-title {
-    top: clamp(80px, 16.5cqw, 102px);
-    font-size: clamp(22px, 5.35cqw, 32px);
-    line-height: 1.02;
+  .phone-card-track {
+    --card-inset: var(--phone-axis);
+    --arrow-size: var(--phone-icon);
+    gap: max(4px, calc(4 * var(--line)));
+    margin-inline: calc(0px - var(--line));
+    padding: var(--line) var(--line) var(--phone-card-overhang);
+    scroll-padding-inline: var(--line);
   }
-  .deck-intro, [data-deck="about"] .deck-intro, [data-card="about"] .deck-intro {
-    top: clamp(138px, 29cqw, 178px);
-    right: var(--copy-left);
-    font-size: clamp(14px, 3.4cqw, 17px);
-    line-height: 1.18;
+  .phone-deck-card.is-open {
+    flex: 0 0 100%;
+    height: 77.7cqw;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    transition: none;
+  }
+  .phone-deck-card[data-card="meetings"] { --art-left: 15%; --art-width: 81%; }
+  .phone-deck-card[data-card="lectures"] { --art-left: 18%; --art-width: 77%; }
+  .phone-deck-card[data-card="evenings"] { --art-left: 22%; --art-width: 72%; }
+  .phone-deck-card[data-card="archive"] { --art-left: 13%; --art-width: 82%; }
+  .phone-deck-card[data-card="about"] { --art-left: 25%; --art-width: 68%; }
+  .phone-deck-card[data-card="idea"] { --art-left: 12.575%; --art-width: 83.415%; --baseline-drop: 6.14%; }
+  .phone-deck-card[data-card="join"] { --art-left: 27%; --art-width: 68%; }
+  .phone-deck-card[data-card="contacts"] { --art-left: 16%; --art-width: 79%; }
+  .phone-deck-card[data-card="events"] { --art-left: 24%; --art-width: 70%; }
+  .phone-deck-card[data-card="denis"] { --art-left: 46%; --art-width: 45%; }
+  .phone-card-caption {
+    position: absolute;
+    inset-block-start: var(--card-inset);
+    inset-inline-start: var(--card-inset);
+    width: calc(100% - 2 * var(--card-inset) - var(--arrow-size) - 2cqw);
+    pointer-events: none;
+  }
+  .phone-card-caption .deck-number, .phone-card-caption .deck-title { position: static; }
+  .phone-card-caption .deck-number {
+    display: block;
+    font-size: 12.65cqw;
+    line-height: .8;
+  }
+  .phone-card-caption .deck-title {
+    margin-block-start: 1.8cqw;
+    font-size: clamp(16px, 6.12cqw, 31px);
+    line-height: 1.03;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+  }
+  .phone-deck-card .deck-action {
+    inset: var(--card-inset) var(--card-inset) auto auto;
+    width: var(--arrow-size);
+    height: var(--arrow-size);
+    border-radius: 50%;
+  }
+  .phone-deck-card .deck-action-icon { inset: 0; }
+
+  .phone-deck-detail, .phone-deck-detail:has(.denis-bio) {
+    --detail-start: 0px;
+    --detail-end: 0px;
+    margin: calc(var(--phone-group-gap) - var(--phone-card-overhang)) 0 0;
+    scroll-margin-block-start: 16px;
+    overflow-anchor: none;
+    font: 400 clamp(15px, 4.25cqw, 21px)/1.2 var(--serif);
+  }
+  /* Keep the page position when cycling through descriptions of different lengths. */
+  [data-deck="home"] .phone-deck-detail {
+    min-block-size: calc(5lh + var(--phone-section-gap) + var(--phone-join-height));
+  }
+  .phone-deck-detail br { display: none; }
+  .phone-deck-detail h3 {
+    padding-inline: var(--phone-axis);
+    font-size: clamp(14px, 4.47cqw, 22px);
+    line-height: 1.08;
+  }
+  .phone-deck-detail[data-section="idea"] > .join-action { display: none; }
+  .phone-deck-detail .deck-intro {
+    position: static;
+    margin: 0;
+    font: inherit;
     white-space: normal;
-    text-wrap: pretty;
   }
-  [data-deck="about"] .deck-card:is([data-card="idea"], [data-card="join"]) { height: max(var(--card-height), 445px); }
-  [data-deck="about"] > .club-deck { --card-height: max(445px, calc(var(--open-width) * .931)); }
-  [data-card="idea"] .deck-artwork { --art-width: 53%; --art-left: 41%; }
-  .deck-card:focus-within { outline-offset: -3px; }
-  .deck-select:focus-visible, .deck-action:focus-visible { outline-offset: -3px; }
-  .deck-detail { --detail-start: 6cqw; --detail-end: 6cqw; margin: 20px var(--detail-end) 0 var(--detail-start); font-size: 16px; line-height: 1.32; }
-  .deck-detail br { display: none; }
-  .deck-detail h3 { font-size: 22px; margin-block-end: 12px; }
-  .deck-detail p + p { margin-top: 12px; }
-  .deck-detail p + h3 { margin-top: 20px; }
-  .deck-detail .join-action { margin-top: 20px; }
-  .club-space { margin-top: 26px; }
-  .club-space h3 { margin-block-end: 18px; }
-  .space-track { --card-height: calc(var(--open-width) * .931); }
+  .phone-deck-detail > .deck-intro + a:not(.pill-action) { display: inline-block; }
+  .phone-deck-detail > .deck-intro + :is(a, .phone-detail-links) { margin-block-start: var(--phone-section-gap); }
+  .phone-detail-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--phone-paragraph-gap) 1.3em;
+  }
+  .space-track {
+    --photo-size: 86.1cqw;
+    gap: 2.55cqw;
+    margin-inline: calc(0px - var(--line)) 0;
+    padding: var(--line) calc(100% - var(--photo-size)) var(--line) var(--line);
+    scroll-padding-inline-start: var(--line);
+  }
+  .space-photo, .space-photo.is-open {
+    flex: 0 0 var(--photo-size);
+    height: var(--photo-size);
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    transition: none;
+  }
   .space-photo:focus-visible { outline-offset: -4px; }
-  .contact-section + .contact-section { margin-top: 30px; }
-  .contact-map { margin-top: 20px; }
-  .club-resources dd { margin-top: 12px; }
-  .club-resources > div + div { margin-top: 22px; }
-  .deck-detail:has(.denis-bio) { margin: 20px 6cqw 0; }
-  .denis-bio { grid-template-columns: 1fr; }
+  .denis-bio { grid-template-columns: 1fr; gap: var(--phone-section-gap); }
   .denis-portrait { width: min(100%, 320px); margin: 0 auto; }
+  .denis-portrait img { border-radius: var(--panel-radius); }
   .denis-copy { width: auto; padding: 0; }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -51,7 +51,10 @@ img { display: block; max-width: 100% }
 }
 .stroke-outline rect { rx: var(--panel-radius) }
 .hero-outline--mobile { display: none }
-.hero.has-joined-frame .hero-scene { visibility: hidden; }
+.hero-drawing { display: contents; }
+@media (min-width: 719px) {
+  .hero:has(.hero-outline--desktop.frame-joined) .hero-scene { visibility: hidden; }
+}
 .hero-outline--mobile.frame-joined rect { visibility: hidden; }
 
 .hero-nav, .hero-brand {
@@ -64,9 +67,11 @@ img { display: block; max-width: 100% }
 }
 .hero-nav { left: 9.34%; gap: 1.72cqw }
 .icon-link { display: block; text-decoration: none; border-radius: 50%; flex-shrink: 0; }
-.icon-link img, .club-cup { width: 5cqw; height: 5cqw }
-.icon-link img { transition: transform .16s ease }
-@media (hover:hover) { .icon-link:hover img { transform: translateY(-2px) } }
+.club-line-mark { display: block; stroke-width: var(--line); overflow: visible; }
+.club-line-mark > use { width: 100%; height: 100%; }
+.icon-link .club-line-mark, .club-cup { width: 5cqw; height: 5cqw }
+.icon-link .club-line-mark { transition: transform .16s ease }
+@media (hover:hover) { .icon-link:hover .club-line-mark { transform: translateY(-2px) } }
 .hero-brand { left: 47.5%; right: 9.25%; gap: 1.72cqw; background: transparent }
 .hero-brand .club-cup { background: var(--paper); border-radius: 50%; width: 5.08cqw; height: 5.08cqw }
 .nameplate {
@@ -93,7 +98,8 @@ img { display: block; max-width: 100% }
   font-size: 1.917cqw;
   line-height: 1.2;
 }
-.hero-copy p + p { margin-top: 2.758cqw }
+.hero-copy p + p { margin-block-start: var(--phone-paragraph-gap, 2.758cqw) }
+.phone-copy-break, .phone-event-break { display: none; }
 .hero-scene {
   pointer-events: none;
   position: absolute; z-index: 1;
@@ -118,9 +124,8 @@ img { display: block; max-width: 100% }
   /* The midpoint follows the actual cap height above the label's baseline. */
   vertical-align: -.14em;
   vertical-align: calc((1cap - 1em) / 2);
-  background: currentColor;
-  mask: url("art/pill-chevron.svg") center / contain no-repeat;
 }
+.pill-mark .club-line-mark { width: 100%; height: 100%; }
 .pill-action:focus-visible { outline-color: var(--ink) }
 .pill-action:disabled { opacity: .6; cursor: default }
 .join-action { display: flex; --pill-gap: .72em }
@@ -128,38 +133,175 @@ img { display: block; max-width: 100% }
 .shell > [data-deck] { margin-top: var(--deck-spacing) }
 [data-inner-header] { display: flex; gap: 1.68cqw; align-items: center; }
 .inner-nav { display: flex; align-items: center; gap: 1.71cqw }
+.phone-nav { display: none }
 @media (prefers-reduced-motion: no-preference) {
   .inner-entrance-pending .inner-page { opacity: 0; }
 }
 @media (max-width: 718px) {
-  .shell { --field-width: calc(100% - 28px); --nameplate-height: 40px; --deck-spacing: 21px; --panel-radius: 18px; --line: .7px }
-  .home-page { padding-top: 36px }
-  .inner-page { padding-top: 24px }
+  .shell {
+    /* Affinity: phone edge → 4% field inset → 10.6% inner axis. */
+    --field-width: min(515.2px, calc(92% - env(safe-area-inset-left) - env(safe-area-inset-right)));
+    --phone-axis: 10.6cqw;
+    --phone-action-width: calc(100% - 2 * var(--phone-axis));
+    /* At 390 px: paragraphs 12, heading to content 16, sections 24, groups 36. */
+    --phone-paragraph-gap: clamp(10px, 3.08vw, 16px);
+    --phone-heading-gap: calc(var(--phone-paragraph-gap) * 4 / 3);
+    --phone-section-gap: calc(2 * var(--phone-paragraph-gap));
+    --phone-group-gap: calc(3 * var(--phone-paragraph-gap));
+    --phone-icon: 15.6cqw;
+    --phone-title-height: 12.6cqw;
+    --phone-hero-overhang: 2.89cqw;
+    --phone-join-gap: calc(var(--phone-hero-overhang) + var(--phone-section-gap));
+    --phone-join-height: 12.1cqw;
+    --phone-copy-size: clamp(16px, 4.9cqw, 23px);
+    --nameplate-height: var(--phone-title-height);
+    --deck-spacing: var(--phone-group-gap);
+    --panel-radius: 4.35cqw;
+    --line: max(.7px, calc(100cqw * 3.8888889 / 1303));
+    --phone-menu-top: max(var(--phone-heading-gap), env(safe-area-inset-top));
+    padding-block-start: var(--phone-menu-top);
+    padding-block-end: max(var(--phone-group-gap), env(safe-area-inset-bottom));
+  }
+  .phone-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0;
+  }
+  .phone-nav .icon-link { width: var(--phone-icon); height: var(--phone-icon); }
+  .phone-nav .club-line-mark { width: 100%; height: 100%; }
+  .hero-nav, .hero-brand .club-cup, .inner-nav, [data-inner-header] > .club-cup { display: none; }
   .hero {
-    display: flex; align-items: flex-end; flex-direction: column;
+    --phone-art-start: 7.154cqw;
+    --phone-art-width: 85.825cqw;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     aspect-ratio: auto;
-    margin-top: 22px; padding: 35px 18px 0;
+    margin-block-start: calc(var(--nameplate-height) / 2 + var(--phone-section-gap));
+    padding: calc(var(--nameplate-height) / 2 + var(--phone-group-gap)) var(--phone-axis) 0;
   }
-  .hero-nav {
-    position: static; order: 1; transform: none; align-self: flex-start;
-    width: max-content; gap: clamp(10px,3.25vw,20px); background: transparent;
+  .hero-brand {
+    left: var(--phone-axis);
+    right: var(--phone-axis);
+    z-index: 2;
   }
-  .icon-link img, .club-cup, .hero-brand .club-cup { width: 40px; height: 40px }
-  .hero-brand { left: 5%; right: 5%; gap: 10px }
-  .nameplate { font-size: clamp(17px, 4.5vw, 24px) }
-  .hero-copy { position: static; order: 2; font-size: clamp(17px, 3vw, 20px); line-height: 1.23; margin-top: 24px; max-width: 95%; }
-  .hero-copy br { display: none }
-  .hero-copy p + p { margin-top: .75em }
-  .pill-action { width: min(100%, 290px); --pill-height: 40px; --pill-size: 13px }
-  .join-action { --pill-gap: .92em }
-  .hero .join-action { position: static; order: 3; margin-top: 21px }
-  .hero-outline--desktop { display: none }
-  .hero-outline--mobile { display: block }
-  .hero-scene { position: relative; order: 4; align-self: flex-start; width: 92%; left: 0; bottom: auto; margin-top: 18px; margin-bottom: -2.3% }
-  .hero:not(.has-joined-frame)::after { position: absolute; content: ""; bottom: calc(0px - var(--line)); height: calc(2 * var(--line)); background: var(--paper); left: 18px; width: calc((100% - 36px) * .92); pointer-events: none }
-  [data-inner-header] { display: grid; grid-template-columns: 1fr auto; gap: 14px 9px }
-  .inner-nav { gap: clamp(9px, 3.5vw, 21px) }
-  [data-inner-header] .nameplate { grid-column: 1/-1; grid-row: 2; font-size: clamp(15px,4.15vw,21px) }
-  [data-inner-header] .club-cup { grid-row: 1; grid-column: 2 }
+  .nameplate { font-size: clamp(16px, 4.85cqw, 25px); }
+  .hero-brand .nameplate {
+    color: var(--paper);
+    background: var(--ink);
+    font-weight: 600;
+  }
+  .nameplate .stroke-outline { display: none; }
+  .hero-copy {
+    position: static;
+    text-align: left;
+    font-size: var(--phone-copy-size);
+    line-height: 1.25;
+  }
+  .hero-copy br { display: none; }
+  .hero-copy .phone-copy-break { display: inline; }
+  .pill-action { width: min(100%, 290px); --pill-height: 40px; --pill-size: 13px; }
+  .pill-label { white-space: normal; }
+  .join-action { --pill-gap: .92em; }
+  :is(.hero .join-action, .phone-home-card-link) {
+    width: var(--phone-action-width);
+    --pill-height: var(--phone-join-height);
+    --pill-size: clamp(11px, 3.04cqw, 15px);
+    --pill-gap: .92em;
+  }
+  .hero .join-action {
+    top: calc(100% + var(--phone-join-gap));
+    left: var(--phone-axis);
+    right: auto;
+  }
+  .phone-home-card-link {
+    display: flex;
+    margin-inline: auto;
+  }
+  .hero-outline--desktop { display: none; }
+  .hero-outline--mobile { display: block; }
+  .hero-scene {
+    position: relative;
+    width: var(--phone-art-width);
+    max-width: none;
+    height: auto;
+    aspect-ratio: 1118.296 / 674.612;
+    align-self: flex-start;
+    margin-inline-start: calc(var(--phone-art-start) - var(--phone-axis));
+    left: 0;
+    bottom: auto;
+    margin-block-start: var(--phone-section-gap);
+    margin-block-end: calc(0px - var(--phone-hero-overhang));
+  }
+  .hero:has(.hero-outline--mobile.frame-joined) .hero-scene { visibility: hidden; }
+  .hero:not(:has(.hero-outline--mobile.frame-joined))::after {
+    position: absolute;
+    content: '';
+    bottom: calc(0px - var(--line));
+    height: calc(2 * var(--line));
+    background: var(--paper);
+    inset-inline-start: var(--phone-art-start);
+    width: var(--phone-art-width);
+    pointer-events: none;
+  }
+  .home-page > [data-deck] {
+    margin-block-start: calc(var(--phone-join-gap) + var(--phone-join-height) + var(--phone-group-gap));
+  }
+  [data-inner-header] {
+    display: grid;
+    padding-block-start: calc(var(--phone-icon) + var(--phone-section-gap));
+  }
+  [data-inner-header] .phone-nav {
+    position: fixed;
+    inset-block-start: var(--phone-menu-top);
+    inset-inline: 0;
+    width: var(--field-width);
+    margin-inline: auto;
+    z-index: 10;
+  }
+  [data-inner-header] .phone-nav::before {
+    content: '';
+    position: fixed;
+    inset: 0 0 auto;
+    block-size: calc(var(--phone-menu-top) + var(--phone-icon) + var(--phone-paragraph-gap));
+    background: var(--paper);
+    pointer-events: none;
+    z-index: -1;
+  }
+  .inner-page :is(.phone-deck-anchors > span, .club-space, .event-row, a, button, summary) {
+    scroll-margin-block-start: calc(var(--phone-menu-top) + var(--phone-icon) + var(--phone-section-gap));
+  }
+  [data-inner-header] .nameplate {
+    min-height: 0;
+    background: none;
+    border-radius: 0;
+    padding: 0;
+    margin-inline: auto;
+    text-transform: uppercase;
+    text-wrap: balance;
+    font: 900 clamp(20px, 6.15cqw, 32px)/1.12 var(--sans);
+    letter-spacing: -.04em;
+  }
+  [data-inner-header] .nameplate strong { font-weight: inherit; }
+  [data-inner-header] .nameplate-prefix { display: none; }
+  [data-page="about"] [data-inner-header] { padding-block-start: var(--phone-icon); }
+  [data-page="about"] [data-inner-header] .nameplate {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .phone-event-break { display: inline; }
+  :is([data-page="events"], [data-page="archive"]):not([data-event]) [data-inner-header] .nameplate strong {
+    display: block;
+    width: min-content;
+  }
+  [data-event] [data-inner-header] .nameplate {
+    font-size: clamp(15.5px, 5.05cqw, 28px);
+    text-wrap: wrap;
+  }
 }
-@media (prefers-reduced-motion: reduce) { .icon-link img { transition: none } }
+@media (prefers-reduced-motion: reduce) { .icon-link .club-line-mark { transition: none } }

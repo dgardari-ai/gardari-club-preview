@@ -19,7 +19,18 @@ function saveEventSelection() {
 saveEventSelection();
 
 for (const row of eventRows) {
-  row.querySelector("summary").append(clubOutline("line"));
+  row.querySelector('summary').append(clubOutline('line'));
+  const toggle = clubOutline('line');
+  const vertical = toggle.firstElementChild.cloneNode();
+  vertical.setAttribute('x1', '50%');
+  vertical.setAttribute('x2', '50%');
+  vertical.setAttribute('y1', '0');
+  vertical.setAttribute('y2', '100%');
+  toggle.append(vertical);
+  row.querySelector('.event-plus').replaceChildren(toggle);
+  const moreOutline = clubOutline();
+  moreOutline.classList.add('event-more-outline');
+  row.querySelector('.event-more')?.append(moreOutline);
 
   row.addEventListener("toggle", () => {
     if (row.open) {

@@ -151,9 +151,9 @@
 
     const title = hero.querySelector('.nameplate');
     end = Math.max(end, wipe(title, frame.topFromRight(title.getBoundingClientRect().right), 370, 1));
-    const nav = hero.querySelector('.hero-nav');
+    const nav = compact.matches ? main.querySelector('.phone-nav') : hero.querySelector('.hero-nav');
     let previous = -Infinity;
-    for (const icon of nav.querySelectorAll('img')) {
+    for (const icon of nav.querySelectorAll('.club-line-mark:not(.club-cup)')) {
       const box = icon.getBoundingClientRect();
       const arrival = compact.matches ? frame.leftAt(box.bottom) : frame.topFromLeft(box.left + box.width / 2);
       const delay = Math.max(arrival, previous + 72);
@@ -164,7 +164,7 @@
     }
 
     const beforeCup = Promise.all(heroAnimations.map(animation => animation.finished));
-    const cup = hero.querySelector('.club-cup');
+    const cup = (compact.matches ? nav : hero).querySelector('.club-cup');
     animate(cup, [{ opacity: 0 }, { opacity: 1 }], { delay: end, duration: 180, easing: revealEase });
     const pulse = animate(cup, [
       { scale: '1', easing: 'ease-in-out' },
@@ -191,7 +191,8 @@
     await waitForDeck();
     if (signal.aborted) return;
 
-    deck.querySelectorAll('.deck-card').forEach((card, index) => {
+    const parts = compact.matches ? '.phone-deck-picker, .phone-card-track' : '.deck-card';
+    deck.querySelectorAll(parts).forEach((card, index) => {
       deckAnimations.push(card.animate([
         { opacity: 0, translate: '0 12px' },
         { opacity: 1, translate: '0 0' },
@@ -205,6 +206,9 @@
   window.addEventListener('resize', () => { if (window.innerWidth !== windowWidth) finish(); }, { signal });
   window.addEventListener('pagehide', finish, { signal });
   window.addEventListener('hashchange', finish, { signal });
+  window.addEventListener('scroll', () => {
+    if (compact.matches && window.scrollY > 1) finish();
+  }, { passive: true, signal });
   document.addEventListener('visibilitychange', () => { if (document.hidden) finish(); }, { signal });
   motion.addEventListener('change', () => { if (motion.matches) finish(); }, { signal });
   main.addEventListener('focusin', finish, { signal });

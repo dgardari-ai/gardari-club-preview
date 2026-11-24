@@ -34,8 +34,9 @@ function clubFrameDrawing(src) {
   return clubFrameDrawingCache.get(url.href);
 }
 
-function clubJoinFrame(svg, image, panel, variant) {
-  return clubFrameDrawing(image.src).then(drawing => {
+function clubJoinFrame(svg, image, panel, variant, source = image.src) {
+  return clubFrameDrawing(source).then(drawing => {
+    if (!svg.isConnected) return;
     const outline = svg.querySelector('path');
     const figure = document.importNode(drawing.figure, true);
     figure.classList.add('joined-figure');
@@ -103,8 +104,15 @@ const clubHeroFrames = (() => {
   const hero = document.querySelector('.hero');
   if (!hero) return;
   const image = hero.querySelector('.hero-scene');
-  return {
-    desktop: clubJoinFrame(hero.querySelector('.hero-outline--desktop'), image, hero, 'desktop-hero'),
-    mobile: clubJoinFrame(hero.querySelector('.hero-outline--mobile'), image, hero, 'mobile-hero'),
-  };
+  const mobileSource = new URL(hero.querySelector('.hero-drawing source').srcset, document.baseURI);
+  const frames = {};
+  function mountFrame() {
+    const layout = clubCompactArt.matches ? 'mobile' : 'desktop';
+    const svg = hero.querySelector('.hero-outline--' + layout);
+    const source = layout === 'mobile' ? mobileSource.href : image.src;
+    frames[layout] ??= clubJoinFrame(svg, image, hero, layout + '-hero', source);
+  }
+  mountFrame();
+  clubCompactArt.addEventListener('change', mountFrame);
+  return frames;
 })();
